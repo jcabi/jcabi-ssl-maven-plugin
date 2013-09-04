@@ -35,6 +35,7 @@
         <artifactId>jcabi</artifactId>
         <version>0.7.22</version>
     </parent>
+    <version>0.8</version>
     <artifactId>jcabi-ssl-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>jcabi-ssl-maven-plugin</name>
