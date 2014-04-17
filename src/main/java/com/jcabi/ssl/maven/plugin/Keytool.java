@@ -159,7 +159,7 @@ final class Keytool {
                 System.getProperty("java.home")
             )
         );
-        for (String arg : args) {
+        for (final String arg : args) {
             cmds.add(arg);
         }
         cmds.add("-storetype");

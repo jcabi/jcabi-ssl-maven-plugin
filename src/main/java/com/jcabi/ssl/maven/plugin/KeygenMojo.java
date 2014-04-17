@@ -117,7 +117,7 @@ public final class KeygenMojo extends AbstractMojo {
             try {
                 store.activate(this.keystore);
                 new Cacerts(this.cacerts).imprt();
-            } catch (java.io.IOException ex) {
+            } catch (final java.io.IOException ex) {
                 throw new IllegalStateException(ex);
             }
         }

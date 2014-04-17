@@ -83,7 +83,7 @@ final class Keystore {
         };
         final StringBuilder text = new StringBuilder();
         text.append('[');
-        for (String name : names) {
+        for (final String name : names) {
             if (text.length() > 1) {
                 text.append(", ");
             }
@@ -134,7 +134,7 @@ final class Keystore {
             Keystore.KEY,
             Keystore.KEY_PWD,
         };
-        for (String name : names) {
+        for (final String name : names) {
             final String value = System.getProperty(name);
             if (value == null) {
                 continue;

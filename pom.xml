@@ -33,7 +33,7 @@
     <parent>
         <groupId>com.jcabi</groupId>
         <artifactId>jcabi</artifactId>
-        <version>0.7.22</version>
+        <version>1.5.1</version>
     </parent>
     <version>1.0-SNAPSHOT</version>
     <artifactId>jcabi-ssl-maven-plugin</artifactId>
@@ -73,18 +73,15 @@
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-log</artifactId>
-            <version>0.7.22</version>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-aspects</artifactId>
-            <version>0.7.22</version>
         </dependency>
         <dependency>
             <!-- Forward all calls to SLF4J to Maven log. -->
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-maven-slf4j</artifactId>
-            <version>0.7.22</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -210,4 +207,22 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>qulice</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.qulice</groupId>
+                        <artifactId>qulice-maven-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>findbugs:.*</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
