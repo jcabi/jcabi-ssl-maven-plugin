@@ -87,7 +87,7 @@ final class Keystore {
             if (text.length() > 1) {
                 text.append(", ");
             }
-            text.append(name).append("=");
+            text.append(name).append('=');
             final String value = System.getProperty(name);
             if (name == null) {
                 text.append("NULL");
