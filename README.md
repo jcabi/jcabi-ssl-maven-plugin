@@ -1,14 +1,17 @@
 <img src="http://img.jcabi.com/logo-square.png" width="64px" height="64px" />
- 
-[![Build Status](https://travis-ci.org/jcabi/jcabi-ssl-maven-plugin.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-ssl-maven-plugin)
 
-More details are here: [www.jcabi.com/jcabi-ssl-maven-plugin](http://www.jcabi.com/jcabi-ssl-maven-plugin/index.html)
+[![Made By Teamed.io](http://img.teamed.io/btn.svg)](http://www.teamed.io)
+[![DevOps By Rultor.com](http://www.rultor.com/b/jcabi/jcabi-ssl-maven-plugin)](http://www.rultor.com/p/jcabi/jcabi-ssl-maven-plugin)
+
+[![Build Status](https://travis-ci.org/jcabi/jcabi-ssl-maven-plugin.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-ssl-maven-plugin)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-ssl-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-ssl-maven-plugin)
+
+More details are here: [ssl.jcabi.com](http://ssl.jcabi.com/index.html)
 
 ## Questions?
 
 If you have any questions about the framework, or something doesn't work as expected,
 please [submit an issue here](https://github.com/jcabi/jcabi-ssl-maven-plugin/issues/new).
-If you want to discuss, please use our [Google Group](https://groups.google.com/forum/#!forum/jcabi).
 
 ## How to contribute?
 
