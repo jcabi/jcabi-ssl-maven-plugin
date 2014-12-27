@@ -39,6 +39,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.commons.io.FileUtils;
@@ -54,6 +55,15 @@ import org.apache.commons.io.FileUtils;
 @ToString
 @EqualsAndHashCode(of = { "keystore", "password" })
 final class Keytool {
+    /**
+     * Localhost, input to the keytool.
+     */
+    public static final String LOCALHOST = "localhost";
+
+    /**
+     * Platform-dependent line separator.
+     */
+    public static final String NEWLINE = System.getProperty("line.separator");
 
     /**
      * Keystore location.
@@ -94,7 +104,7 @@ final class Keytool {
         final Process proc = this.proc(
             "-genkeypair",
             "-alias",
-            "localhost",
+            Keytool.LOCALHOST,
             "-keyalg",
             "RSA",
             "-keysize",
@@ -105,13 +115,13 @@ final class Keytool {
         final PrintWriter writer = new PrintWriter(
             new OutputStreamWriter(proc.getOutputStream())
         );
-        writer.print("localhost\n");
-        writer.print("ACME Co.\n");
-        writer.print("software developers\n");
-        writer.print("San Francisco\n");
-        writer.print("California\n");
-        writer.print("US\n");
-        writer.print("yes\n");
+        writer.print(this.appendNewLine(Keytool.LOCALHOST));
+        writer.print(this.appendNewLine("ACME Co."));
+        writer.print(this.appendNewLine("software developers"));
+        writer.print(this.appendNewLine("San Francisco"));
+        writer.print(this.appendNewLine("California"));
+        writer.print(this.appendNewLine("US"));
+        writer.print(this.appendNewLine(this.createLocaleDependentYes()));
         writer.close();
         new VerboseProcess(proc).stdout();
         Logger.info(
@@ -146,6 +156,32 @@ final class Keytool {
     }
 
     /**
+     * Creates a string, which consists of string with an appended
+     * platform-dependent line separator.
+     * @param text Text, to which the line separator needs to be appended
+     * @return Contents of text with appended line separator
+     */
+    private String appendNewLine(final String text) {
+        return String.format("%s%s", text, NEWLINE);
+    }
+
+    /**
+     * Creates a text, which represents "yes" in either English or German
+     * language, depending on the locale.
+     * @return Return "Ja", if the locale is German, "Yes" otherwise.
+     */
+    private String createLocaleDependentYes() {
+        final String language = Locale.getDefault().getLanguage();
+        final String yes;
+        if ("de".equals(language)) {
+            yes = "Ja";
+        } else {
+            yes = "Yes";
+        }
+        return yes;
+    }
+
+    /**
      * Create process builder.
      * @param args Arguments
      * @return Process just created and started
@@ -171,5 +207,4 @@ final class Keytool {
         cmds.add(this.keystore);
         return new ProcessBuilder(cmds);
     }
-
 }
