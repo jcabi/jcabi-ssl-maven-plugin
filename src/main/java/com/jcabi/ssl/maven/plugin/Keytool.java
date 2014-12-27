@@ -105,13 +105,16 @@ final class Keytool {
         final PrintWriter writer = new PrintWriter(
             new OutputStreamWriter(proc.getOutputStream())
         );
-        writer.print("localhost\n");
-        writer.print("ACME Co.\n");
-        writer.print("software developers\n");
-        writer.print("San Francisco\n");
-        writer.print("California\n");
-        writer.print("US\n");
-        writer.print("yes\n");
+        final String newLine = System.getProperty("line.separator");
+
+        writer.print("localhost" + newLine);
+        writer.print("ACME Co." + newLine);
+        writer.print("software developers" + newLine);
+        writer.print("San Francisco" + newLine);
+        writer.print("California" + newLine);
+        writer.print("US" + newLine);
+        // writer.print("yes" + System.getProperty("line.separator"));
+        writer.print("Ja" + newLine);
         writer.close();
         new VerboseProcess(proc).stdout();
         Logger.info(
