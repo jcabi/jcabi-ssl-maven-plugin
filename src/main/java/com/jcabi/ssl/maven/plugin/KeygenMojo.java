@@ -116,7 +116,7 @@ public final class KeygenMojo extends AbstractMojo {
         if (!store.isActive()) {
             try {
                 store.activate(this.keystore);
-                Cacerts truststore = new Cacerts(this.cacerts);
+                final Cacerts truststore = new Cacerts(this.cacerts);
                 truststore.imprt();
                 truststore.populate(this.project.getProperties());
             } catch (final java.io.IOException ex) {

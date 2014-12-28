@@ -32,16 +32,12 @@ package com.jcabi.ssl.maven.plugin;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.log.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
-
 import javax.validation.constraints.NotNull;
-
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -119,14 +115,12 @@ final class Cacerts {
 
     /**
      * Populate given properties with this truststore's path and password.
+     *
      * @param props The properties
      */
     @Loggable(Loggable.DEBUG)
     public void populate(final Properties props) {
-        final String[] names = new String[] {
-    		Cacerts.TRUST,
-    		Cacerts.TRUST_PWD,
-        };
+        final String[] names = new String[] {Cacerts.TRUST, Cacerts.TRUST_PWD};
         for (final String name : names) {
             final String value = System.getProperty(name);
             if (value == null) {
@@ -134,10 +128,10 @@ final class Cacerts {
             }
             props.put(name, value);
             Logger.info(
-                this,
-                "Maven property ${%s} set to '%s'",
-                name,
-                System.getProperty(name)
+                    this,
+                    "Maven property ${%s} set to '%s'",
+                    name,
+                    System.getProperty(name)
             );
         }
     }
