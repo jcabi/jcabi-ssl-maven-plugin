@@ -125,7 +125,7 @@ final class Keystore {
     }
 
     /**
-     * Populate given properties with data.
+     * Populate given properties with this keystore's path and password.
      * @param props The properties
      */
     @Loggable(Loggable.DEBUG)
