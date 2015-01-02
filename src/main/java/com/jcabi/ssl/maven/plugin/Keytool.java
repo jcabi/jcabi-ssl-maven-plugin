@@ -169,16 +169,14 @@ final class Keytool {
      * Creates a text, which represents "yes" in either English or German
      * language, depending on the locale.
      * @return Return "Ja", if the locale is German, "Yes" otherwise.
+     * @todo #11 Currently, the implementation below recognizes only
+     *  German and English locales. It should be extended so that other
+     *  locales (e. g. Spanish) is supported as well. If a particular
+     *  locale is not supported, the user should get a hint about that.
      */
     private String createLocaleDependentYes() {
         final String language = Locale.getDefault().getLanguage();
         final String yes;
-        /**
-         * @todo #11:30m/DEV Currently, the implementation below recognizes only
-         *  German and English locales. It should be extended so that other
-         *  locales (e. g. Spanish) is supported as well. If a particular
-         *  locale is not supported, the user should get a hint about that.
-         */
         if ("de".equals(language)) {
             yes = "Ja";
         } else {
