@@ -58,12 +58,12 @@ final class Keytool {
     /**
      * Localhost, input to the keytool.
      */
-    public static final String LOCALHOST = "localhost";
+    private static final String LOCALHOST = "localhost";
 
     /**
      * Platform-dependent line separator.
      */
-    public static final String NEWLINE = System.getProperty("line.separator");
+    private static final String NEWLINE = System.getProperty("line.separator");
 
     /**
      * Keystore location.
