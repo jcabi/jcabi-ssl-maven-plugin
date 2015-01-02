@@ -52,12 +52,12 @@ final class Keystore {
     /**
      * Constant {@code javax.net.ssl.keyStore}.
      */
-    public static final String KEY = "javax.net.ssl.keyStore";
+    private static final String KEY = "javax.net.ssl.keyStore";
 
     /**
      * Constant {@code javax.net.ssl.keyStorePassword}.
      */
-    public static final String KEY_PWD = "javax.net.ssl.keyStorePassword";
+    private static final String KEY_PWD = "javax.net.ssl.keyStorePassword";
 
     /**
      * Unique password of it.
