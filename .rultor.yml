@@ -7,6 +7,10 @@ assets:
 env:
   MAVEN_OPTS: "-XX:MaxPermSize=256m -Xmx1g"
 
+architect:
+  - yegor256
+  - dmarkov
+
 install:
   - "sudo gem install pdd"
 

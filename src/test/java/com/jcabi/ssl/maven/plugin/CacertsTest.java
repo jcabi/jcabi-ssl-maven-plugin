@@ -70,10 +70,15 @@ public final class CacertsTest {
             new Keytool(truststoreFile, "changeit").list(),
             Matchers.containsString("localhost")
         );
-        Properties props = new Properties();
+        final Properties props = new Properties();
         truststore.populate(props);
-        Assert.assertEquals(truststoreFile.getAbsolutePath(), props.getProperty(Cacerts.TRUST));
-        Assert.assertEquals(Cacerts.STD_PWD, props.getProperty(Cacerts.TRUST_PWD));
+        Assert.assertEquals(
+            truststoreFile.getAbsolutePath(),
+            props.getProperty(Cacerts.TRUST)
+        );
+        Assert.assertEquals(
+            Cacerts.STD_PWD,
+            props.getProperty(Cacerts.TRUST_PWD)
+        );
     }
-
 }

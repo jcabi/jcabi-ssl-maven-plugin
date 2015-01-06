@@ -1,4 +1,6 @@
 target/
+jcabi-ssl-maven-plugin.iml
+.idea/
 .settings
 .project
 .classpath
