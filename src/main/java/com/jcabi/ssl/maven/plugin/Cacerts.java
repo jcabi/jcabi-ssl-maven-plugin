@@ -55,17 +55,17 @@ final class Cacerts {
     /**
      * Constant {@code javax.net.ssl.trustStore}.
      */
-    private static final String TRUST = "javax.net.ssl.trustStore";
+    static final String TRUST = "javax.net.ssl.trustStore";
 
     /**
      * Constant {@code javax.net.ssl.trustStorePassword}.
      */
-    private static final String TRUST_PWD = "javax.net.ssl.trustStorePassword";
+    static final String TRUST_PWD = "javax.net.ssl.trustStorePassword";
 
     /**
      * Standard password of {@code cacerts} file.
      */
-    private static final String STD_PWD = "changeit";
+    static final String STD_PWD = "changeit";
 
     /**
      * New location of the trust store.
@@ -131,7 +131,7 @@ final class Cacerts {
                     this,
                     "Maven property ${%s} set to '%s'",
                     name,
-                    System.getProperty(name)
+                    value
             );
         }
     }

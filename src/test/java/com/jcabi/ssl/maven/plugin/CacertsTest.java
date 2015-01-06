@@ -30,8 +30,10 @@
 package com.jcabi.ssl.maven.plugin;
 
 import java.io.File;
+import java.util.Properties;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -56,17 +58,22 @@ public final class CacertsTest {
      */
     @Test
     public void importsCertificatesFromKeystore() throws Exception {
-        final File keystore = this.temp.newFile("keystore.jks");
-        keystore.delete();
-        final File truststore = this.temp.newFile("cacerts.jks");
-        truststore.delete();
+        final File keystoreFile = this.temp.newFile("keystore.jks");
+        keystoreFile.delete();
+        final File truststoreFile = this.temp.newFile("cacerts.jks");
+        truststoreFile.delete();
         final String pwd = "some-password";
-        new Keystore(pwd).activate(keystore);
-        new Cacerts(truststore).imprt();
+        new Keystore(pwd).activate(keystoreFile);
+        final Cacerts truststore = new Cacerts(truststoreFile);
+        truststore.imprt();
         MatcherAssert.assertThat(
-            new Keytool(truststore, "changeit").list(),
+            new Keytool(truststoreFile, "changeit").list(),
             Matchers.containsString("localhost")
         );
+        Properties props = new Properties();
+        truststore.populate(props);
+        Assert.assertEquals(truststoreFile.getAbsolutePath(), props.getProperty(Cacerts.TRUST));
+        Assert.assertEquals(Cacerts.STD_PWD, props.getProperty(Cacerts.TRUST_PWD));
     }
 
 }
