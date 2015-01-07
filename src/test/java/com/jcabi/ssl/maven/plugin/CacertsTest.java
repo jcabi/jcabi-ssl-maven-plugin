@@ -33,7 +33,6 @@ import java.io.File;
 import java.util.Properties;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -58,27 +57,27 @@ public final class CacertsTest {
      */
     @Test
     public void importsCertificatesFromKeystore() throws Exception {
-        final File keystoreFile = this.temp.newFile("keystore.jks");
-        keystoreFile.delete();
-        final File truststoreFile = this.temp.newFile("cacerts.jks");
-        truststoreFile.delete();
+        final File keystore = this.temp.newFile("keystore.jks");
+        keystore.delete();
+        final File truststore = this.temp.newFile("cacerts.jks");
+        truststore.delete();
         final String pwd = "some-password";
-        new Keystore(pwd).activate(keystoreFile);
-        final Cacerts truststore = new Cacerts(truststoreFile);
-        truststore.imprt();
+        new Keystore(pwd).activate(keystore);
+        final Cacerts cacerts = new Cacerts(truststore);
+        cacerts.imprt();
         MatcherAssert.assertThat(
-            new Keytool(truststoreFile, "changeit").list(),
+            new Keytool(truststore, "changeit").list(),
             Matchers.containsString("localhost")
         );
         final Properties props = new Properties();
-        truststore.populate(props);
-        Assert.assertEquals(
-            truststoreFile.getAbsolutePath(),
-            props.getProperty(Cacerts.TRUST)
+        cacerts.populate(props);
+        MatcherAssert.assertThat(
+            truststore.getAbsolutePath(),
+            Matchers.equalTo(props.getProperty(Cacerts.TRUST))
         );
-        Assert.assertEquals(
+        MatcherAssert.assertThat(
             Cacerts.STD_PWD,
-            props.getProperty(Cacerts.TRUST_PWD)
+            Matchers.equalTo(props.getProperty(Cacerts.TRUST_PWD))
         );
     }
 }
