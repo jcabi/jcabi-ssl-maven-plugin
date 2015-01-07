@@ -55,17 +55,17 @@ final class Cacerts {
     /**
      * Constant {@code javax.net.ssl.trustStore}.
      */
-    static final String TRUST = "javax.net.ssl.trustStore";
+    public static final String TRUST = "javax.net.ssl.trustStore";
 
     /**
      * Constant {@code javax.net.ssl.trustStorePassword}.
      */
-    static final String TRUST_PWD = "javax.net.ssl.trustStorePassword";
+    public static final String TRUST_PWD = "javax.net.ssl.trustStorePassword";
 
     /**
      * Standard password of {@code cacerts} file.
      */
-    static final String STD_PWD = "changeit";
+    public static final String STD_PWD = "changeit";
 
     /**
      * New location of the trust store.
@@ -128,10 +128,10 @@ final class Cacerts {
             }
             props.put(name, value);
             Logger.info(
-                    this,
-                    "Maven property ${%s} set to '%s'",
-                    name,
-                    value
+                this,
+                "Maven property ${%s} set to '%s'",
+                name,
+                value
             );
         }
     }
