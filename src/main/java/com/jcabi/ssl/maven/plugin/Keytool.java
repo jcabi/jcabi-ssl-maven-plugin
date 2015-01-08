@@ -40,6 +40,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.commons.io.FileUtils;
@@ -166,23 +167,15 @@ final class Keytool {
     }
 
     /**
-     * Creates a text, which represents "yes" in either English or German
-     * language, depending on the locale.
-     * @return Return "Ja", if the locale is German, "Yes" otherwise.
-     * @todo #11 Currently, the implementation below recognizes only
-     *  German and English locales. It should be extended so that other
-     *  locales (e. g. Spanish) is supported as well. If a particular
-     *  locale is not supported, the user should get a hint about that.
+     * Creates a text, which represents "yes" in the language,
+     * specified by the current locale.
+     * @return The word "Yes" translated to the current language
      */
     private String createLocaleDependentYes() {
-        final String language = Locale.getDefault().getLanguage();
-        final String yes;
-        if ("de".equals(language)) {
-            yes = "Ja";
-        } else {
-            yes = "Yes";
-        }
-        return yes;
+        final ResourceBundle resources = ResourceBundle.getBundle(
+            "sun.security.util.Resources", Locale.getDefault()
+        );
+        return resources.getString("yes");
     }
 
     /**
