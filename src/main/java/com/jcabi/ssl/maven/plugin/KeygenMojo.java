@@ -31,6 +31,7 @@ package com.jcabi.ssl.maven.plugin;
 
 import com.jcabi.log.Logger;
 import java.io.File;
+import java.io.IOException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
@@ -113,17 +114,18 @@ public final class KeygenMojo extends AbstractMojo {
         final Keystore store = new Keystore(
             DigestUtils.md5Hex(this.getClass().getName())
         );
-        if (!store.isActive()) {
-            try {
+        final Cacerts truststore;
+        try {
+            truststore = new Cacerts(this.cacerts);
+            if (!store.isActive()) {
                 store.activate(this.keystore);
-                final Cacerts truststore = new Cacerts(this.cacerts);
                 truststore.imprt();
-                truststore.populate(this.project.getProperties());
-            } catch (final java.io.IOException ex) {
-                throw new IllegalStateException(ex);
             }
+        } catch (IOException ex) {
+            throw new IllegalStateException(ex);
         }
         store.populate(this.project.getProperties());
+        truststore.populate(this.project.getProperties());
         Logger.info(this, "Keystore is active: %s", store);
     }
 
