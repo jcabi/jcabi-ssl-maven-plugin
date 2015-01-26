@@ -30,9 +30,10 @@
 package com.jcabi.ssl.maven.plugin;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.Properties;
 import org.apache.maven.project.MavenProject;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -63,24 +64,26 @@ public final class KeygenMojoTest {
      */
     @Test
     public void populatesCacertsIdKeystoreIsActive() throws Exception {
-        final KeygenMojo.KeystoreFactory factory = Mockito.mock(
-            KeygenMojo.KeystoreFactory.class
+        final Keystore keystore = new Keystore("changeit");
+        keystore.activate(
+            new File("target/populatesCacertsIdKeystoreIsActive/keystore.jks")
         );
-        final Keystore keystore = Mockito.mock(Keystore.class);
-        final Cacerts cacerts = Mockito.mock(Cacerts.class);
-        final KeygenMojo mojo = new KeygenMojo(factory);
+        final Cacerts cacerts = new Cacerts(
+            new File("target/populatesCacertsIdKeystoreIsActive/truststore.jks")
+        );
         final MavenProject project = Mockito.mock(MavenProject.class);
-        final Field projectField = KeygenMojo.class.getDeclaredField("project");
-        projectField.setAccessible(true);
-        projectField.set(mojo, project);
-        Mockito.when(project.getProperties()).thenReturn(new Properties());
-        Mockito.when(factory.createKeystore(Mockito.any(Class.class)))
-            .thenReturn(keystore);
-        Mockito.when(factory.createCacerts(Mockito.any(File.class)))
-            .thenReturn(cacerts);
-        Mockito.when(keystore.isActive()).thenReturn(true);
+        final Properties properties = new Properties();
+        Mockito.when(project.getProperties()).thenReturn(properties);
+        final KeygenMojo mojo = new KeygenMojo(project, keystore, cacerts);
         mojo.execute();
-        Mockito.verify(cacerts).populate(Mockito.any(Properties.class));
+        MatcherAssert.assertThat(
+            properties.getProperty(Cacerts.TRUST_PWD),
+            Matchers.notNullValue()
+        );
+        MatcherAssert.assertThat(
+            properties.getProperty(Cacerts.TRUST),
+            Matchers.notNullValue()
+        );
     }
 
 }

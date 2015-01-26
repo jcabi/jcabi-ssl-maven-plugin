@@ -50,7 +50,7 @@ import org.apache.commons.io.FileUtils;
 @Immutable
 @ToString
 @EqualsAndHashCode(of = "store")
-class Cacerts {
+final class Cacerts {
 
     /**
      * Constant {@code javax.net.ssl.trustStore}.

@@ -47,7 +47,7 @@ import lombok.EqualsAndHashCode;
  */
 @Immutable
 @EqualsAndHashCode(of = "password")
-class Keystore {
+final class Keystore {
 
     /**
      * Constant {@code javax.net.ssl.keyStore}.
