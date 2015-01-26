@@ -94,6 +94,26 @@ public final class KeygenMojo extends AbstractMojo {
     private transient File cacerts;
 
     /**
+     * Keystore factory.
+     */
+    private transient KeystoreFactory factory;
+
+    /**
+     * Creates KeygenMojo using default KeystoreFactory.
+     */
+    public KeygenMojo() {
+        this(new KeystoreFactory());
+    }
+
+    /**
+     * Creates KeygenMojo using custom KeystoreFactory.
+     * @param fctr Keystore factory
+     */
+    public KeygenMojo(final KeystoreFactory fctr) {
+        this.factory = fctr;
+    }
+
+    /**
      * Set skip option.
      * @param skp Shall we skip execution?
      */
@@ -111,12 +131,10 @@ public final class KeygenMojo extends AbstractMojo {
             Logger.info(this, "execution skipped because of 'skip' option");
             return;
         }
-        final Keystore store = new Keystore(
-            DigestUtils.md5Hex(this.getClass().getName())
-        );
+        final Keystore store = this.factory.createKeystore(this.getClass());
         final Cacerts truststore;
         try {
-            truststore = new Cacerts(this.cacerts);
+            truststore = this.factory.createCacerts(this.cacerts);
             if (!store.isActive()) {
                 store.activate(this.keystore);
                 truststore.imprt();
@@ -127,6 +145,33 @@ public final class KeygenMojo extends AbstractMojo {
         store.populate(this.project.getProperties());
         truststore.populate(this.project.getProperties());
         Logger.info(this, "Keystore is active: %s", store);
+    }
+
+    /**
+     * Factory for keystore and castore.
+     * @checkstyle AbstractClassNameCheck (2 lines)
+     */
+    static class KeystoreFactory {
+
+        /**
+         * Creates a keystore.
+         * @param clazz Class name
+         * @return Keystore instance
+         */
+        public Keystore createKeystore(final Class<?> clazz) {
+            return new Keystore(DigestUtils.md5Hex(clazz.getName()));
+        }
+
+        /**
+         * Creates Cacerts instance.
+         * @param cacerts Cacerts file
+         * @return Cacerts instance
+         * @throws IOException in case cacerts creation failed
+         */
+        public Cacerts createCacerts(final File cacerts) throws IOException {
+            return new Cacerts(cacerts);
+        }
+
     }
 
 }

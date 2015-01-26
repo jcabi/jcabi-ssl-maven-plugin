@@ -29,13 +29,21 @@
  */
 package com.jcabi.ssl.maven.plugin;
 
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.Properties;
+import org.apache.maven.project.MavenProject;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * Test case for {@link KeygenMojo} (more detailed test is in maven invoker).
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  */
+@RunWith(MockitoJUnitRunner.class)
 public final class KeygenMojoTest {
 
     /**
@@ -47,6 +55,32 @@ public final class KeygenMojoTest {
         final KeygenMojo mojo = new KeygenMojo();
         mojo.setSkip(true);
         mojo.execute();
+    }
+
+    /**
+     * KeygenMojo populates cacerts even is keystore is active.
+     * @throws Exception if test have failed
+     */
+    @Test
+    public void populatesCacertsIdKeystoreIsActive() throws Exception {
+        final KeygenMojo.KeystoreFactory factory = Mockito.mock(
+            KeygenMojo.KeystoreFactory.class
+        );
+        final Keystore keystore = Mockito.mock(Keystore.class);
+        final Cacerts cacerts = Mockito.mock(Cacerts.class);
+        final KeygenMojo mojo = new KeygenMojo(factory);
+        final MavenProject project = Mockito.mock(MavenProject.class);
+        final Field projectField = KeygenMojo.class.getDeclaredField("project");
+        projectField.setAccessible(true);
+        projectField.set(mojo, project);
+        Mockito.when(project.getProperties()).thenReturn(new Properties());
+        Mockito.when(factory.createKeystore(Mockito.any(Class.class)))
+            .thenReturn(keystore);
+        Mockito.when(factory.createCacerts(Mockito.any(File.class)))
+            .thenReturn(cacerts);
+        Mockito.when(keystore.isActive()).thenReturn(true);
+        mojo.execute();
+        Mockito.verify(cacerts).populate(Mockito.any(Properties.class));
     }
 
 }
