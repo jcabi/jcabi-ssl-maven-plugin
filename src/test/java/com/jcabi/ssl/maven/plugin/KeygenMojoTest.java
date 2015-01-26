@@ -75,6 +75,8 @@ public final class KeygenMojoTest {
         final Properties properties = new Properties();
         Mockito.when(project.getProperties()).thenReturn(properties);
         final KeygenMojo mojo = new KeygenMojo(project, keystore, cacerts);
+        System.getProperties().setProperty(Cacerts.TRUST, "trust");
+        System.getProperties().setProperty(Cacerts.TRUST_PWD, "pwd");
         mojo.execute();
         MatcherAssert.assertThat(
             properties.getProperty(Cacerts.TRUST_PWD),
