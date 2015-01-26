@@ -107,7 +107,10 @@ public final class KeygenMojo extends AbstractMojo {
      * Creates KeygenMojo.
      */
     public KeygenMojo() {
-        super();
+        this(
+            null, new Keystore(DigestUtils.md5Hex(KeygenMojo.class.getName())),
+            null
+        );
     }
 
     /**
@@ -141,11 +144,6 @@ public final class KeygenMojo extends AbstractMojo {
         if (this.skip) {
             Logger.info(this, "execution skipped because of 'skip' option");
             return;
-        }
-        if (this.store == null) {
-            this.store = new Keystore(
-                DigestUtils.md5Hex(KeygenMojo.class.getName())
-            );
         }
         try {
             if (this.truststore == null) {
