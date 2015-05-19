@@ -1,6 +1,7 @@
 install:
 - sudo gem install pdd
 architect:
+- yegor256
 - dmarkov
 assets:
   secring.gpg: yegor256/home#assets/secring.gpg
