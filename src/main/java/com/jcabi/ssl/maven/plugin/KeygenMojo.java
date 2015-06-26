@@ -36,9 +36,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.jfrog.maven.annomojo.annotations.MojoGoal;
-import org.jfrog.maven.annomojo.annotations.MojoParameter;
-import org.jfrog.maven.annomojo.annotations.MojoPhase;
 import org.slf4j.impl.StaticLoggerBinder;
 
 /**
@@ -47,59 +44,48 @@ import org.slf4j.impl.StaticLoggerBinder;
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  * @since 0.5
+ * @goal keygen
+ * @phase initialize
  */
-@MojoGoal("keygen")
-@MojoPhase("initialize")
 public final class KeygenMojo extends AbstractMojo {
 
     /**
      * Maven project.
+     * @parameter name="project" default-value="${project}"
+     * @readonly
+     * @required
      */
-    @MojoParameter(
-        expression = "${project}",
-        required = true,
-        readonly = true,
-        description = "Maven project"
-    )
     private transient MavenProject project;
 
     /**
      * Shall we skip execution?
+     * @parameter name="skip"
      */
-    @MojoParameter(
-        defaultValue = "false",
-        required = false,
-        description = "Skips execution"
-    )
     private transient boolean skip;
 
     /**
      * Name of keystore.jks file.
+     * @parameter name="keystore"
+     * default-value="${project.build.directory}/keystore.jks"
      */
-    @MojoParameter(
-        defaultValue = "${project.build.directory}/keystore.jks",
-        required = false,
-        description = "Name of keystore.jks file"
-    )
     private transient File keystore;
 
     /**
      * Name of cacerts.jks file.
+     * @parameter name="cacerts"
+     * default-value="${project.build.directory}/cacerts.jks"
      */
-    @MojoParameter(
-        defaultValue = "${project.build.directory}/cacerts.jks",
-        required = false,
-        description = "Name of cacerts.jks file"
-    )
     private transient File cacerts;
 
     /**
      * Keystore instance.
+     * @parameter name="store"
      */
     private transient Keystore store;
 
     /**
      * Cacerts instance.
+     * @parameter name="truststore"
      */
     private transient Cacerts truststore;
 

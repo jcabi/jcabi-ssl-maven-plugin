@@ -39,8 +39,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.commons.io.FileUtils;
@@ -172,10 +170,12 @@ final class Keytool {
      * @return The word "Yes" translated to the current language
      */
     private String createLocaleDependentYes() {
-        final ResourceBundle resources = ResourceBundle.getBundle(
-            "sun.security.util.Resources", Locale.getDefault()
-        );
-        return resources.getString("yes");
+        /* @todo #25:30min In JDK 1.8, there is no "yes" word in
+         *  sun.security.util.Resources, so in order to enable building in JDK
+         *  1.8 I replaced translated "yes" with an English "yes'. A way should
+         *  be found to get "yes" for current locale in JDK 1.8
+         */
+        return "yes";
     }
 
     /**
