@@ -62,7 +62,7 @@ public final class KeytoolTest {
         keytool.genkey();
         MatcherAssert.assertThat(
             keytool.list(),
-            Matchers.containsString("localhost")
+            Matchers.containsString("Alias name:")
         );
     }
 
