@@ -36,7 +36,7 @@ import java.util.ListResourceBundle;
  * Language resources for Russian language.
  * @author Georgy Vlasov (wlasowegor@gmail.com)
  * @version $Id$
- * @since 0.11
+ * @since 0.12
  * @checkstyle TypeNameCheck (50 lines)
  */
 @Immutable

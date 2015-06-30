@@ -36,7 +36,7 @@ import java.util.ListResourceBundle;
  * Language resources for English language.
  * @author Georgy Vlasov (wlasowegor@gmail.com)
  * @version $Id$
- * @since 0.11
+ * @since 0.12
  */
 @Immutable
 public final class KeytoolBundle extends ListResourceBundle {

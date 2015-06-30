@@ -39,7 +39,7 @@ import org.junit.Test;
  * Integration test for KeytoolBundle set of classes.
  * @author Georgy Vlasov (wlasowegor@gmail.com)
  * @version $Id$
- * @since 0.11
+ * @since 0.12
  */
 public final class KeytoolBundleTest {
 
