@@ -79,13 +79,11 @@ public final class KeygenMojo extends AbstractMojo {
 
     /**
      * Keystore instance.
-     * @parameter name="store"
      */
     private transient Keystore store;
 
     /**
      * Cacerts instance.
-     * @parameter name="truststore"
      */
     private transient Cacerts truststore;
 
