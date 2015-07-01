@@ -66,6 +66,18 @@ public final class Yes {
      * @return Word yes translated to a language.
      */
     public String translate(final Locale locale) {
-        return this.translations.get(locale.getLanguage());
+        final String language = locale.getLanguage();
+        if (!this.translations.containsKey(language)) {
+            throw new IllegalArgumentException(
+                String.format(
+                    new StringBuilder()
+                        .append("Language %s is not supported, you can create ")
+                        .append("an issue on Github and we'll fix it")
+                        .toString(),
+                    language
+                )
+            );
+        }
+        return this.translations.get(language);
     }
 }
