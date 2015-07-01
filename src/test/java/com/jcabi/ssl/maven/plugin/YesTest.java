@@ -29,30 +29,27 @@
  */
 package com.jcabi.ssl.maven.plugin;
 
-import com.jcabi.aspects.Immutable;
-import java.util.ListResourceBundle;
+import java.util.Locale;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 /**
- * Language resources for English language.
+ * Unit tests for {@link Yes}.
  * @author Georgy Vlasov (wlasowegor@gmail.com)
  * @version $Id$
  * @since 0.12
  */
-@Immutable
-public final class KeytoolBundle extends ListResourceBundle {
-
+public final class YesTest {
     /**
-     * English word yes.
+     * Yes can be translated to different languages.
      */
-    public static final String YES = "yes";
-
-    @Override
-    public Object[][] getContents() {
-        return new Object[][]{
-            {
-                YES,
-                YES,
-            },
-        };
+    @Test
+    public void translates() {
+        MatcherAssert.assertThat(
+            new Yes().translate(Locale.FRENCH),
+            Matchers.equalTo("oui")
+        );
     }
+
 }

@@ -29,67 +29,43 @@
  */
 package com.jcabi.ssl.maven.plugin;
 
+import java.util.HashMap;
 import java.util.Locale;
-import java.util.ResourceBundle;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.Test;
+import java.util.Map;
 
 /**
- * Integration test for KeytoolBundle set of classes.
+ * Translates word yes to different languages.
  * @author Georgy Vlasov (wlasowegor@gmail.com)
  * @version $Id$
  * @since 0.12
  */
-public final class KeytoolBundleTest {
+public final class Yes {
+    /**
+     * Map from 2-letter language codes to translations of word yes into that
+     * language.
+     */
+    private final transient Map<String, String> translations;
 
     /**
-     * English word yes.
+     * Public ctor.
      */
-    public static final String YES = "yes";
-
-    /**
-     * Translates yes to German.
-     */
-    @Test
-    public void translatesYesToDe() {
-        MatcherAssert.assertThat(
-            this.translateYes("de"),
-            Matchers.equalTo("ja")
-        );
+    public Yes() {
+        this.translations = new HashMap<String, String>();
+        this.translations.put("en", "yes");
+        this.translations.put("de", "ja");
+        this.translations.put("fr", "oui");
+        this.translations.put("ru", "да");
+        this.translations.put("es", "sí");
+        this.translations.put("ua", "так");
+        this.translations.put("jp", "はい");
     }
 
     /**
-     * Translates yes to Russian.
+     * Translates word yes to a language.
+     * @param locale Locate specifying the language.
+     * @return Word yes translated to a language.
      */
-    @Test
-    public void translatesYesToRu() {
-        MatcherAssert.assertThat(
-            this.translateYes("ru"),
-            Matchers.equalTo("да")
-        );
-    }
-
-    /**
-     * Translates yes to English.
-     */
-    @Test
-    public void translatesYesToEn() {
-        MatcherAssert.assertThat(
-            this.translateYes("en"),
-            Matchers.equalTo(YES)
-        );
-    }
-
-    /**
-     * Translates yes to a langage specified by a locale name.
-     * @param locale Name of locale.
-     * @return Word yes translated into a particular language.
-     */
-    private String translateYes(final String locale) {
-        return ResourceBundle.getBundle(
-            "com.jcabi.ssl.maven.plugin.KeytoolBundle",
-            Locale.forLanguageTag(locale)
-        ).getString(YES);
+    public String translate(final Locale locale) {
+        return this.translations.get(locale.getLanguage());
     }
 }

@@ -40,7 +40,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.commons.io.FileUtils;
@@ -172,10 +171,7 @@ final class Keytool {
      * @return The word "Yes" translated to the current language
      */
     private String createLocaleDependentYes() {
-        final ResourceBundle resources = ResourceBundle.getBundle(
-            "com.jcabi.ssl.maven.plugin.KeytoolBundle", Locale.getDefault()
-        );
-        return resources.getString("yes");
+        return new Yes().translate(Locale.getDefault());
     }
 
     /**
