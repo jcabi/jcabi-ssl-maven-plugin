@@ -67,7 +67,8 @@ public final class Yes {
      */
     public String translate(final Locale locale) {
         final String language = locale.getLanguage();
-        if (!this.translations.containsKey(language)) {
+        final String translation = this.translations.get(language);
+        if (translation == null) {
             throw new IllegalArgumentException(
                 String.format(
                     new StringBuilder()
@@ -78,6 +79,6 @@ public final class Yes {
                 )
             );
         }
-        return this.translations.get(language);
+        return translation;
     }
 }
