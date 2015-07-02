@@ -38,6 +38,7 @@ import java.util.Map;
  * @author Georgy Vlasov (wlasowegor@gmail.com)
  * @version $Id$
  * @since 0.12
+ * @checkstyle MultipleStringLiteralsCheck (100 lines)
  */
 public final class Yes {
     /**
