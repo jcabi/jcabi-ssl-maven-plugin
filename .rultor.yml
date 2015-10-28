@@ -28,8 +28,6 @@ deploy:
   - mvn clean
   - pdd --source=$(pwd) --verbose --file=jcabi-ssl-maven-plugin.xml
   - s3cmd --no-progress put jcabi-ssl-maven-plugin.xml --config=../s3cfg s3://pdd.teamed.io/jcabi-ssl-maven-plugin.xml
-  commanders:
-  - yegor256
 env:
   MAVEN_OPTS: -XX:MaxPermSize=256m -Xmx1g
 release:
