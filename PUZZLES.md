@@ -1,10 +1,9 @@
-<md xmlns="http://www.w3.org/1999/xhtml" etag="4-puzzles-xsd/init.xsl">## Puzzles
+## Puzzles
 
-There are 0 active puzzles (1 total), updated on 2015-12-09T08:24:58Z:
+There are 0 active puzzles (4 total), updated on 2015-12-09T11:43:56Z:
 
-<del>unknown</del> ?
-.<del>11-721ca2c9</del> src/main/java/com/jcabi/ssl/maven/plugin/Keytool.java:172-175
-.[<del>25</del>](https://github.com/jcabi/jcabi-ssl-maven-plugin/issues/25) ?
-.<del>25-04bb79eb</del> src/main/java/com/jcabi/ssl/maven/plugin/Keytool.java:173-173
+unknown ?
+&nbsp;11-721ca2c9 src/main/java/com/jcabi/ssl/maven/plugin/Keytool.java:172-175
+&nbsp;[25](https://github.com/jcabi/jcabi-ssl-maven-plugin/issues/25) ?
+&nbsp;&nbsp;25-04bb79eb src/main/java/com/jcabi/ssl/maven/plugin/Keytool.java:173-173
 
-</md>
