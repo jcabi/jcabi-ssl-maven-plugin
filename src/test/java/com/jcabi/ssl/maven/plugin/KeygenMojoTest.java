@@ -41,7 +41,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * Test case for {@link KeygenMojo} (more detailed test is in maven invoker).
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  */
 @RunWith(MockitoJUnitRunner.class)

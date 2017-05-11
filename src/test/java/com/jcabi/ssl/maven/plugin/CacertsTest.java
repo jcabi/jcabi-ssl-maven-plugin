@@ -39,7 +39,7 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Test case for {@link Cacerts}.
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Yegor Bugayenko (yegor256@gmail.com)
  * @version $Id$
  */
 public final class CacertsTest {
