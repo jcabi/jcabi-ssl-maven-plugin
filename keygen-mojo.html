@@ -136,13 +136,13 @@
                             </div>
                             <ul class="badges">
                                 <li>
-                                    <strong itemprop="version">0.11</strong>
+                                    <strong itemprop="version">0.12</strong>
                                 </li>
                                 <li>
                                     
-                                    <time itemprop="datePublished" datetime="2015-02-01T03:26:00Z">
+                                    <time itemprop="datePublished" datetime="2017-05-11T08:10:32Z">
                                         
-                                        01-Feb-2015
+                                        11-May-2017
                                     </time>
                                 </li>
                                 <li class="menu-button">menu</li>
@@ -160,18 +160,19 @@
       
 <p><b>Full name</b>:</p>
       
-<p>com.jcabi:jcabi-ssl-maven-plugin:0.11:keygen</p>
+<p>com.jcabi:jcabi-ssl-maven-plugin:0.12:keygen</p>
       
 <p><b>Description</b>:</p>
       
-<div>Generate SSL keystore and configure in JVM. @author Yegor Bugayenko
-(yegor@tpc2.com) @version $Id$ @since 0.5</div>
+<div>Generate SSL keystore and configure in JVM.</div>
       
 <p><b>Attributes</b>:</p>
       
 <ul>
         
 <li>Requires a Maven project to be executed.</li>
+        
+<li>Since version: <tt>0.5</tt>.</li>
         
 <li>Binds by default to the <a class="externalLink" href="http://maven.apache.org/ref/current/maven-core/lifecycles.html">lifecycle phase</a>: <tt>initialize</tt>.</li>
       </ul>
@@ -194,13 +195,13 @@
           
 <tr class="b">
             
-<td><b><a href="#skip">skip</a></b></td>
+<td><b><a href="#cacerts">cacerts</a></b></td>
             
-<td><tt>boolean</tt></td>
+<td><tt>File</tt></td>
             
-<td><tt>-</tt></td>
+<td><tt>0.5</tt></td>
             
-<td>Skips execution<br /><b>Default value is</b>: <tt>false</tt>.<br /></td>
+<td>Name of cacerts.jks file.<br /><b>Default value is</b>: <tt>${project.build.directory}/cacerts.jks</tt>.<br /></td>
           </tr>
           
 <tr class="a">
@@ -209,20 +210,20 @@
             
 <td><tt>File</tt></td>
             
-<td><tt>-</tt></td>
+<td><tt>0.5</tt></td>
             
-<td>Name of keystore.jks file<br /><b>Default value is</b>: <tt>${project.build.directory}/keystore.jks</tt>.<br /></td>
+<td>Name of keystore.jks file.<br /><b>Default value is</b>: <tt>${project.build.directory}/keystore.jks</tt>.<br /></td>
           </tr>
           
 <tr class="b">
             
-<td><b><a href="#cacerts">cacerts</a></b></td>
+<td><b><a href="#skip">skip</a></b></td>
             
-<td><tt>File</tt></td>
+<td><tt>boolean</tt></td>
             
-<td><tt>-</tt></td>
+<td><tt>0.5</tt></td>
             
-<td>Name of cacerts.jks file<br /><b>Default value is</b>: <tt>${project.build.directory}/cacerts.jks</tt>.<br /></td>
+<td>Shall we skip execution?<br /></td>
           </tr>
         </table>
       </div>
@@ -230,41 +231,45 @@
 <div class="section">
 <h3><a name="Parameter_Details"></a>Parameter Details</h3>
         
-<p><b><a name="skip">skip</a>:</b></p>
+<p><b><a name="cacerts">cacerts</a>:</b></p>
         
-<div>Skips execution</div>
-        
-<ul>
-          
-<li><b>Type</b>: <tt>boolean</tt></li>
-          
-<li><b>Required</b>: <tt>No</tt></li>
-          
-<li><b>Default</b>: <tt>false</tt></li>
-        </ul><hr />
-<p><b><a name="keystore">keystore</a>:</b></p>
-        
-<div>Name of keystore.jks file</div>
+<div>Name of cacerts.jks file.</div>
         
 <ul>
           
 <li><b>Type</b>: <tt>java.io.File</tt></li>
+          
+<li><b>Since</b>: <tt>0.5</tt></li>
+          
+<li><b>Required</b>: <tt>No</tt></li>
+          
+<li><b>Default</b>: <tt>${project.build.directory}/cacerts.jks</tt></li>
+        </ul><hr />
+<p><b><a name="keystore">keystore</a>:</b></p>
+        
+<div>Name of keystore.jks file.</div>
+        
+<ul>
+          
+<li><b>Type</b>: <tt>java.io.File</tt></li>
+          
+<li><b>Since</b>: <tt>0.5</tt></li>
           
 <li><b>Required</b>: <tt>No</tt></li>
           
 <li><b>Default</b>: <tt>${project.build.directory}/keystore.jks</tt></li>
         </ul><hr />
-<p><b><a name="cacerts">cacerts</a>:</b></p>
+<p><b><a name="skip">skip</a>:</b></p>
         
-<div>Name of cacerts.jks file</div>
+<div>Shall we skip execution?</div>
         
 <ul>
           
-<li><b>Type</b>: <tt>java.io.File</tt></li>
+<li><b>Type</b>: <tt>boolean</tt></li>
+          
+<li><b>Since</b>: <tt>0.5</tt></li>
           
 <li><b>Required</b>: <tt>No</tt></li>
-          
-<li><b>Default</b>: <tt>${project.build.directory}/cacerts.jks</tt></li>
         </ul>
       </div>
     </div>
@@ -276,7 +281,7 @@
                 <footer class="legal-notes">
                     <div>
                         Copyright &#169;
-                                                                            2012-2015
+                                                                            2012-2017
                                             </div>
                     <div>jcabi.com, All Rights Reserved.</div>
                     <div><a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a>.</div>
