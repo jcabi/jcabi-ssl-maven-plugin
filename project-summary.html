@@ -15,32 +15,12 @@
                     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
                 })();
             </script>
-                                                                                                                
-<link rel="shortcut icon" href="http://img.jcabi.com/favicon.ico"/>
-                                                                                                                
-<link rel="author" href="https://plus.google.com/u/0/114792568016408327418?rel=author"/>
-                                            <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
-        <script>
-            $(document).ready(
-                function() {
-                    $(".menu-button").click(
-                        function() {
-                            if ($("#here-goes-menu").attr("class") == "menu-off") {
-                                $("#menu").clone().attr("class", "mobile-menu").appendTo("#here-goes-menu");
-                                $("#here-goes-menu").attr("class", "menu-on");
-                            } else {
-                                $(".mobile-menu").hide();
-                                $("#here-goes-menu").attr("class", "menu-off");
-                            }
-                        }
-                    );
-                }
-            );
-        </script>
+                                            <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="./js/jcabi.js"></script>
     </head>
     <body>
-                <section class="page" itemscope="" itemtype="http://schema.org/BlogPosting">
-            <nav class="menu-section" role="navigation">
+                <div class="page" itemscope="" itemtype="http://schema.org/BlogPosting">
+            <nav class="menu-section">
                 <ul class="menu" id="menu">
                                                                                     <li>
                             <span>Parent Project</span>
@@ -80,12 +60,6 @@
                                                                                                                                                                 <ul>
                                                                     </ul>
                                                     </li>
-                                                                                                                        <li >
-                            <span>                        <a href="changes-report.html" title="Release History">Release History</a>
-        </span>
-                                                                                                                                                                <ul>
-                                                                    </ul>
-                                                    </li>
                                                                                         </ul>
                                                     </li>
                                             <li>
@@ -105,7 +79,7 @@
                                                                                                     <li >
                             <span>                        <a href="project-info.html" title="Project Information">Project Information</a>
         </span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <ul>
                                                                                                     <li >
                             <span>                        <a href="integration.html" title="Continuous Integration">Continuous Integration</a>
         </span>
@@ -114,6 +88,12 @@
                                                     </li>
                                                                                                                         <li >
                             <span>                        <a href="dependencies.html" title="Dependencies">Dependencies</a>
+        </span>
+                                                                                                                                                                <ul>
+                                                                    </ul>
+                                                    </li>
+                                                                                                                        <li >
+                            <span>                        <a href="index.html" title="About">About</a>
         </span>
                                                                                                                                                                 <ul>
                                                                     </ul>
@@ -171,7 +151,7 @@
                                     </ul>
             </nav>
             <div class="right-side">
-                <main role="main">
+                <main>
                     <div class="content">
                         <header>
                             <div class="logo">
@@ -185,20 +165,15 @@
                                     />
                                 </a>
                             </div>
-                            <div class="teamed">
-                                <a href="http://www.teamed.io">
-                                    <img src="http://img.teamed.io/btn.svg" alt="teamed.io logo"/>
-                                </a>
-                            </div>
                             <ul class="badges">
                                 <li>
-                                    <strong itemprop="version">0.12</strong>
+                                    <strong itemprop="version">0.13.0</strong>
                                 </li>
                                 <li>
                                     
-                                    <time itemprop="datePublished" datetime="2017-05-11T08:10:03Z">
+                                    <time itemprop="datePublished" datetime="2022-08-09T04:09:55Z">
                                         
-                                        11-May-2017
+                                        09-Aug-2022
                                     </time>
                                 </li>
                                 <li class="menu-button">menu</li>
@@ -206,12 +181,11 @@
                         </header>
                         <div id="here-goes-menu" class="menu-off"></div>
                                                                             <a href="https://github.com/jcabi/jcabi-ssl-maven-plugin">
-                                <img src="http://img.jcabi.com/fork-me.svg" class="fork-me"/>
+                                <img src="https://www.jcabi.com/fork-me.svg" class="fork-me"/>
                             </a>
-                                                <article role="article" itemprop="articleBody">
-                            <div class="section">
-<h2><a name="Project_Summary"></a>Project Summary</h2><a name="Project_Summary"></a>
-<div class="section">
+                                                <article itemprop="articleBody">
+                            <section>
+<h2><a name="Project_Summary"></a>Project Summary</h2><a name="Project_Summary"></a><section>
 <h3><a name="Project_Information"></a>Project Information</h3><a name="Project_Information"></a>
 <table border="0" class="bodyTable">
 <tr class="a">
@@ -225,8 +199,7 @@
 <td>SSL Certificates Mocking Maven Plugin</td></tr>
 <tr class="b">
 <td>Homepage</td>
-<td><a class="externalLink" href="http://www.jcabi.com/jcabi-ssl-maven-plugin">http://www.jcabi.com/jcabi-ssl-maven-plugin</a></td></tr></table></div>
-<div class="section">
+<td><a class="externalLink" href="https://www.jcabi.com/jcabi-ssl-maven-plugin">https://www.jcabi.com/jcabi-ssl-maven-plugin</a></td></tr></table></section><section>
 <h3><a name="Project_Organization"></a>Project Organization</h3><a name="Project_Organization"></a>
 <table border="0" class="bodyTable">
 <tr class="a">
@@ -237,8 +210,7 @@
 <td>jcabi.com</td></tr>
 <tr class="a">
 <td>URL</td>
-<td><a class="externalLink" href="http://www.jcabi.com">http://www.jcabi.com</a></td></tr></table></div>
-<div class="section">
+<td><a class="externalLink" href="https://www.jcabi.com">https://www.jcabi.com</a></td></tr></table></section><section>
 <h3><a name="Build_Information"></a>Build Information</h3><a name="Build_Information"></a>
 <table border="0" class="bodyTable">
 <tr class="a">
@@ -252,27 +224,26 @@
 <td>jcabi-ssl-maven-plugin</td></tr>
 <tr class="b">
 <td>Version</td>
-<td>0.12</td></tr>
+<td>0.13.0</td></tr>
 <tr class="a">
 <td>Type</td>
 <td>maven-plugin</td></tr>
 <tr class="b">
 <td>JDK Rev</td>
-<td>1.6</td></tr></table></div>
-<div class="section">
-<h3><a name="Download"></a>Download</h3><a name="Download"></a><a class="externalLink" href="https://oss.sonatype.org/content/groups/public">https://oss.sonatype.org/content/groups/public</a></div></div>
+<td>1.8</td></tr></table></section><section>
+<h3><a name="Download"></a>Download</h3><a name="Download"></a><a class="externalLink" href="https://oss.sonatype.org/content/groups/public">https://oss.sonatype.org/content/groups/public</a></section></section>
                         </article>
                     </div>
                 </main>
                 <footer class="legal-notes">
                     <div>
                         Copyright &#169;
-                                                                            2012-2017
+                                                                            2012-2022
                                             </div>
                     <div>jcabi.com, All Rights Reserved.</div>
                     <div><a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a>.</div>
                 </footer>
             </div>
-        </section>
+        </div>
     </body>
 </html>
