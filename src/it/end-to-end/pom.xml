@@ -33,7 +33,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
   <groupId>com.jcabi</groupId>
   <artifactId>jcabi-test</artifactId>
   <name>test</name>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <build>
     <plugins>
