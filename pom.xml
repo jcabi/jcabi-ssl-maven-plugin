@@ -45,8 +45,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <url>https://github.com/jcabi/jcabi-ssl-maven-plugin/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>travis</system>
-    <url>https://travis-ci.org/jcabi/jcabi-ssl-maven-plugin</url>
+    <system>github</system>
+    <url>https://github.com/jcabi/jcabi-ssl-maven-plugin</url>
   </ciManagement>
   <scm>
     <connection>scm:git:github.com:jcabi/jcabi-ssl-maven-plugin.git</connection>
