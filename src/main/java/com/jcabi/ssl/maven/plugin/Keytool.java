@@ -121,18 +121,24 @@ final class Keytool {
      */
     @Loggable(Loggable.DEBUG)
     public void imprt(final File file, final String pwd) throws IOException {
-        final List<String> cmds = new ArrayList<>(15);
+        final List<String> cmds = new ArrayList<>(20);
         cmds.add(Keytool.keytool());
         cmds.add("-importkeystore");
         cmds.add("-srckeystore");
         cmds.add(file.getAbsolutePath());
         cmds.add("-srcstorepass");
         cmds.add(pwd);
+        cmds.add("-srcalias");
+        cmds.add(Keytool.LOCALHOST);
+        cmds.add("-srckeypass");
+        cmds.add(pwd);
         cmds.add("-srcstoretype");
         cmds.add("jks");
         cmds.add("-destkeystore");
         cmds.add(this.keystore);
         cmds.add("-deststorepass");
+        cmds.add(this.password);
+        cmds.add("-destkeypass");
         cmds.add(this.password);
         cmds.add("-deststoretype");
         cmds.add("jks");
