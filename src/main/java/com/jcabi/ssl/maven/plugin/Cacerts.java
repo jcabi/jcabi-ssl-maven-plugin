@@ -60,6 +60,7 @@ final class Cacerts {
             )
         );
         FileUtils.copyFile(prev.toPath().toRealPath().toFile(), file);
+        file.setWritable(true);
         Logger.info(
             this,
             "Existing cacerts '%s' copied to '%s' (%s)",
