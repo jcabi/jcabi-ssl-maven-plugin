@@ -7,8 +7,11 @@ package com.jcabi.ssl.maven.plugin;
 import com.jcabi.aspects.Immutable;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.log.Logger;
+import com.jcabi.log.VerboseProcess;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
@@ -58,13 +61,13 @@ final class Cacerts {
                 "%s/lib/security/cacerts",
                 System.getProperty("java.home")
             )
-        );
-        FileUtils.copyFile(prev.toPath().toRealPath().toFile(), file);
+        ).toPath().toRealPath().toFile();
+        Cacerts.convert(prev, file);
         file.setWritable(true);
         Logger.info(
             this,
-            "Existing cacerts '%s' copied to '%s' (%s)",
-            prev.toPath().toRealPath(),
+            "Existing cacerts '%s' imported to '%s' (%s)",
+            prev,
             this.store,
             FileUtils.byteCountToDisplaySize(file.length())
         );
@@ -110,5 +113,36 @@ final class Cacerts {
                 value
             );
         }
+    }
+
+    /**
+     * Convert cacerts from any format to JKS.
+     * @param src Source cacerts file
+     * @param dest Destination JKS file
+     * @throws IOException If fails
+     */
+    private static void convert(final File src, final File dest)
+        throws IOException {
+        dest.getParentFile().mkdirs();
+        final List<String> cmds = new ArrayList<>(15);
+        cmds.add(
+            String.format(
+                "%s/bin/keytool",
+                System.getProperty("java.home")
+            )
+        );
+        cmds.add("-importkeystore");
+        cmds.add("-srckeystore");
+        cmds.add(src.getAbsolutePath());
+        cmds.add("-srcstorepass");
+        cmds.add(Cacerts.STD_PWD);
+        cmds.add("-destkeystore");
+        cmds.add(dest.getAbsolutePath());
+        cmds.add("-deststorepass");
+        cmds.add(Cacerts.STD_PWD);
+        cmds.add("-deststoretype");
+        cmds.add("jks");
+        cmds.add("-noprompt");
+        new VerboseProcess(new ProcessBuilder(cmds)).stdout();
     }
 }

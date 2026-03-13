@@ -65,7 +65,15 @@ final class Keytool {
      */
     @Loggable(Loggable.DEBUG)
     public String list() throws IOException {
-        return new VerboseProcess(this.proc("-list", "-v")).stdout();
+        final List<String> cmds = new ArrayList<>(10);
+        cmds.add(Keytool.keytool());
+        cmds.add("-list");
+        cmds.add("-v");
+        cmds.add("-keystore");
+        cmds.add(this.keystore);
+        cmds.add("-storepass");
+        cmds.add(this.password);
+        return new VerboseProcess(new ProcessBuilder(cmds)).stdout();
     }
 
     /**
@@ -113,19 +121,23 @@ final class Keytool {
      */
     @Loggable(Loggable.DEBUG)
     public void imprt(final File file, final String pwd) throws IOException {
-        new VerboseProcess(
-            this.proc(
-                "-importkeystore",
-                "-srckeystore",
-                file.getAbsolutePath(),
-                "-srcstorepass",
-                pwd,
-                "-destkeystore",
-                this.keystore,
-                "-deststorepass",
-                this.password
-            )
-        ).stdout();
+        final List<String> cmds = new ArrayList<>(15);
+        cmds.add(Keytool.keytool());
+        cmds.add("-importkeystore");
+        cmds.add("-srckeystore");
+        cmds.add(file.getAbsolutePath());
+        cmds.add("-srcstorepass");
+        cmds.add(pwd);
+        cmds.add("-srcstoretype");
+        cmds.add("jks");
+        cmds.add("-destkeystore");
+        cmds.add(this.keystore);
+        cmds.add("-deststorepass");
+        cmds.add(this.password);
+        cmds.add("-deststoretype");
+        cmds.add("jks");
+        cmds.add("-noprompt");
+        new VerboseProcess(new ProcessBuilder(cmds)).stdout();
     }
 
     /**
@@ -148,19 +160,24 @@ final class Keytool {
     }
 
     /**
+     * Returns the path to the keytool executable.
+     * @return Path to keytool
+     */
+    private static String keytool() {
+        return String.format(
+            "%s/bin/keytool",
+            System.getProperty("java.home")
+        );
+    }
+
+    /**
      * Create process builder.
      * @param args Arguments
      * @return Process just created and started
-     * @throws IOException If fails
      */
-    private ProcessBuilder proc(final String... args) throws IOException {
+    private ProcessBuilder proc(final String... args) {
         final List<String> cmds = new ArrayList<>(args.length + 1);
-        cmds.add(
-            String.format(
-                "%s/bin/keytool",
-                System.getProperty("java.home")
-            )
-        );
+        cmds.add(Keytool.keytool());
         cmds.addAll(java.util.Arrays.asList(args));
         cmds.add("-storetype");
         cmds.add("jks");
