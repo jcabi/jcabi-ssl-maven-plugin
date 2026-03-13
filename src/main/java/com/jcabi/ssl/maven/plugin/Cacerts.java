@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -143,6 +144,8 @@ final class Cacerts {
         cmds.add("-deststoretype");
         cmds.add("jks");
         cmds.add("-noprompt");
-        new VerboseProcess(new ProcessBuilder(cmds)).stdout();
+        new VerboseProcess(
+            new ProcessBuilder(cmds), Level.FINE, Level.FINE
+        ).stdout();
     }
 }

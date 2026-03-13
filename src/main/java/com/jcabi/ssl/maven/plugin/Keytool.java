@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.commons.io.FileUtils;
@@ -73,7 +74,9 @@ final class Keytool {
         cmds.add(this.keystore);
         cmds.add("-storepass");
         cmds.add(this.password);
-        return new VerboseProcess(new ProcessBuilder(cmds)).stdout();
+        return new VerboseProcess(
+            new ProcessBuilder(cmds), Level.FINE, Level.FINE
+        ).stdout();
     }
 
     /**
@@ -104,7 +107,7 @@ final class Keytool {
             writer.print(Keytool.appendNewLine("US"));
             writer.print(Keytool.appendNewLine(Keytool.localeDependentYes()));
         }
-        new VerboseProcess(proc).stdout();
+        new VerboseProcess(proc, Level.FINE, Level.FINE).stdout();
         Logger.info(
             this,
             "Keystore created in '%s' (%s)",
@@ -143,7 +146,9 @@ final class Keytool {
         cmds.add("-deststoretype");
         cmds.add("jks");
         cmds.add("-noprompt");
-        new VerboseProcess(new ProcessBuilder(cmds)).stdout();
+        new VerboseProcess(
+            new ProcessBuilder(cmds), Level.FINE, Level.FINE
+        ).stdout();
     }
 
     /**
