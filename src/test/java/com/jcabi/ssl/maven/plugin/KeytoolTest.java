@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -38,8 +38,8 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Test case for {@link Keytool}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.5
  */
 public final class KeytoolTest {
 

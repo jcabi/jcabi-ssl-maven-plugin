@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -47,8 +47,6 @@ import org.apache.commons.io.FileUtils;
 /**
  * Keytool abstraction.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
  * @since 0.5
  */
 @Immutable
@@ -76,11 +74,11 @@ final class Keytool {
     private final transient String password;
 
     /**
-     * Public ctor.
+     * Ctor.
      * @param store The location of keystore
      * @param pwd The password
      */
-    public Keytool(final File store, final String pwd) {
+    Keytool(final File store, final String pwd) {
         this.keystore = store.getAbsolutePath();
         this.password = pwd;
     }
@@ -112,17 +110,17 @@ final class Keytool {
             "-keypass",
             this.password
         ).start();
-        final PrintWriter writer = new PrintWriter(
-            new OutputStreamWriter(proc.getOutputStream())
-        );
-        writer.print(this.appendNewLine(Keytool.LOCALHOST));
-        writer.print(this.appendNewLine("ACME Co."));
-        writer.print(this.appendNewLine("software developers"));
-        writer.print(this.appendNewLine("San Francisco"));
-        writer.print(this.appendNewLine("California"));
-        writer.print(this.appendNewLine("US"));
-        writer.print(this.appendNewLine(this.createLocaleDependentYes()));
-        writer.close();
+        try (PrintWriter writer = new PrintWriter(
+            new OutputStreamWriter(proc.getOutputStream(), "UTF-8")
+        )) {
+            writer.print(Keytool.appendNewLine(Keytool.LOCALHOST));
+            writer.print(Keytool.appendNewLine("ACME Co."));
+            writer.print(Keytool.appendNewLine("software developers"));
+            writer.print(Keytool.appendNewLine("San Francisco"));
+            writer.print(Keytool.appendNewLine("California"));
+            writer.print(Keytool.appendNewLine("US"));
+            writer.print(Keytool.appendNewLine(Keytool.localeDependentYes()));
+        }
         new VerboseProcess(proc).stdout();
         Logger.info(
             this,
@@ -161,8 +159,8 @@ final class Keytool {
      * @param text Text, to which the line separator needs to be appended
      * @return Contents of text with appended line separator
      */
-    private String appendNewLine(final String text) {
-        return String.format("%s%s", text, NEWLINE);
+    private static String appendNewLine(final String text) {
+        return String.format("%s%s", text, Keytool.NEWLINE);
     }
 
     /**
@@ -170,7 +168,7 @@ final class Keytool {
      * specified by the current locale.
      * @return The word "Yes" translated to the current language
      */
-    private String createLocaleDependentYes() {
+    private static String localeDependentYes() {
         return new Yes().translate(Locale.getDefault());
     }
 
@@ -181,16 +179,14 @@ final class Keytool {
      * @throws IOException If fails
      */
     private ProcessBuilder proc(final String... args) throws IOException {
-        final List<String> cmds = new ArrayList<String>(args.length + 1);
+        final List<String> cmds = new ArrayList<>(args.length + 1);
         cmds.add(
             String.format(
                 "%s/bin/keytool",
                 System.getProperty("java.home")
             )
         );
-        for (final String arg : args) {
-            cmds.add(arg);
-        }
+        cmds.addAll(java.util.Arrays.asList(args));
         cmds.add("-storetype");
         cmds.add("jks");
         cmds.add("-noprompt");

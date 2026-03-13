@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -41,8 +41,6 @@ import lombok.EqualsAndHashCode;
 /**
  * Keystore abstraction.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
  * @since 0.5
  */
 @Immutable
@@ -65,22 +63,16 @@ final class Keystore {
     private final transient String password;
 
     /**
-     * Public ctor.
+     * Ctor.
      * @param pwd The password
      */
-    public Keystore(@NotNull final String pwd) {
+    Keystore(@NotNull final String pwd) {
         this.password = pwd;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
-        final String[] names = new String[] {
-            Keystore.KEY,
-            Keystore.KEY_PWD,
-        };
+        final String[] names = {Keystore.KEY, Keystore.KEY_PWD};
         final StringBuilder text = new StringBuilder();
         text.append('[');
         for (final String name : names) {
@@ -88,11 +80,10 @@ final class Keystore {
                 text.append(", ");
             }
             text.append(name).append('=');
-            final String value = System.getProperty(name);
             if (name == null) {
                 text.append("NULL");
             } else {
-                text.append(value);
+                text.append(System.getProperty(name));
             }
         }
         text.append(']');
@@ -130,16 +121,12 @@ final class Keystore {
      */
     @Loggable(Loggable.DEBUG)
     public void populate(final Properties props) {
-        final String[] names = new String[] {
-            Keystore.KEY,
-            Keystore.KEY_PWD,
-        };
+        final String[] names = {Keystore.KEY, Keystore.KEY_PWD};
         for (final String name : names) {
-            final String value = System.getProperty(name);
-            if (value == null) {
+            if (System.getProperty(name) == null) {
                 continue;
             }
-            props.put(name, value);
+            props.put(name, System.getProperty(name));
             Logger.info(
                 this,
                 "Maven property ${%s} set to '%s'",

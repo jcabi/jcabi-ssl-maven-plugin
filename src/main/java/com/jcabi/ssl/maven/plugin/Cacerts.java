@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -43,8 +43,6 @@ import org.apache.commons.io.FileUtils;
 /**
  * Abstraction of {@code java.home/lib/security/cacerts} file.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
  * @since 0.5
  */
 @Immutable
@@ -73,11 +71,12 @@ final class Cacerts {
     private final transient String store;
 
     /**
-     * Public ctor.
+     * Ctor.
      * @param file New location
      * @throws IOException If fails
      */
-    public Cacerts(@NotNull final File file) throws IOException {
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
+    Cacerts(@NotNull final File file) throws IOException {
         this.store = file.getAbsolutePath();
         final File prev = new File(
             String.format(
@@ -101,8 +100,9 @@ final class Cacerts {
      */
     public void imprt() throws IOException {
         final File keystore = new File(System.getProperty(Keystore.KEY));
-        final String pwd = System.getProperty(Keystore.KEY_PWD);
-        new Keytool(new File(this.store), Cacerts.STD_PWD).imprt(keystore, pwd);
+        new Keytool(new File(this.store), Cacerts.STD_PWD).imprt(
+            keystore, System.getProperty(Keystore.KEY_PWD)
+        );
         System.setProperty(Cacerts.TRUST, this.store);
         System.setProperty(Cacerts.TRUST_PWD, Cacerts.STD_PWD);
         Logger.info(
@@ -120,7 +120,7 @@ final class Cacerts {
      */
     @Loggable(Loggable.DEBUG)
     public void populate(final Properties props) {
-        final String[] names = new String[] {Cacerts.TRUST, Cacerts.TRUST_PWD};
+        final String[] names = {Cacerts.TRUST, Cacerts.TRUST_PWD};
         for (final String name : names) {
             final String value = System.getProperty(name);
             if (value == null) {

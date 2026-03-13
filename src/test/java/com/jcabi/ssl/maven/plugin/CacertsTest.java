@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -39,8 +39,8 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Test case for {@link Cacerts}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.5
  */
 public final class CacertsTest {
 
@@ -56,13 +56,13 @@ public final class CacertsTest {
      * @throws Exception If something is wrong
      */
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     public void importsCertificatesFromKeystore() throws Exception {
         final File keystore = this.temp.newFile("keystore.jks");
         keystore.delete();
         final File truststore = this.temp.newFile("cacerts.jks");
         truststore.delete();
-        final String pwd = "some-password";
-        new Keystore(pwd).activate(keystore);
+        new Keystore("some-password").activate(keystore);
         final Cacerts cacerts = new Cacerts(truststore);
         cacerts.imprt();
         MatcherAssert.assertThat(

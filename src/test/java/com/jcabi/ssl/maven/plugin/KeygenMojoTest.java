@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -37,12 +37,12 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * Test case for {@link KeygenMojo} (more detailed test is in maven invoker).
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.5
  */
 @RunWith(MockitoJUnitRunner.class)
 public final class KeygenMojoTest {
@@ -52,6 +52,7 @@ public final class KeygenMojoTest {
      * @throws Exception If something is wrong
      */
     @Test
+    @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
     public void skipsExecutionWhenRequired() throws Exception {
         final KeygenMojo mojo = new KeygenMojo();
         mojo.setSkip(true);
@@ -63,18 +64,21 @@ public final class KeygenMojoTest {
      * @throws Exception if test have failed
      */
     @Test
+    @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
     public void populatesCacertsIdKeystoreIsActive() throws Exception {
         final Keystore keystore = new Keystore("changeit");
         keystore.activate(
             new File("target/populatesCacertsIdKeystoreIsActive/keystore.jks")
         );
-        final Cacerts cacerts = new Cacerts(
-            new File("target/populatesCacertsIdKeystoreIsActive/truststore.jks")
-        );
         final MavenProject project = Mockito.mock(MavenProject.class);
         final Properties properties = new Properties();
         Mockito.when(project.getProperties()).thenReturn(properties);
-        final KeygenMojo mojo = new KeygenMojo(project, keystore, cacerts);
+        final KeygenMojo mojo = new KeygenMojo(
+            project, keystore,
+            new Cacerts(
+                new File("target/populatesCacertsIdKeystoreIsActive/trust.jks")
+            )
+        );
         System.getProperties().setProperty(Cacerts.TRUST, "trust");
         System.getProperties().setProperty(Cacerts.TRUST_PWD, "pwd");
         mojo.execute();

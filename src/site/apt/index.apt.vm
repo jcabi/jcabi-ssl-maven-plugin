@@ -41,4 +41,3 @@ SSL Maven Plugin (for testing mostly)
   The plugin helps you to configure SSL keyStore and trustStore for testing.
 
   See {{{./usage.html}Usage}} page.
-

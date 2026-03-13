@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -36,8 +36,7 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link Yes}.
- * @author Georgy Vlasov (wlasowegor@gmail.com)
- * @version $Id$
+ *
  * @since 0.12
  */
 public final class YesTest {

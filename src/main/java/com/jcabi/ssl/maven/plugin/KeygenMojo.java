@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -41,8 +41,6 @@ import org.slf4j.impl.StaticLoggerBinder;
 /**
  * Generate SSL keystore and configure in JVM.
  *
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
  * @since 0.5
  * @goal keygen
  * @phase initialize
@@ -119,9 +117,6 @@ public final class KeygenMojo extends AbstractMojo {
         this.skip = skp;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void execute() throws MojoFailureException {
         StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());

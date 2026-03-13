@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -35,8 +35,7 @@ import java.util.Map;
 
 /**
  * Translates word yes to different languages.
- * @author Georgy Vlasov (wlasowegor@gmail.com)
- * @version $Id$
+ *
  * @since 0.12
  * @checkstyle MultipleStringLiteralsCheck (100 lines)
  */
@@ -48,8 +47,9 @@ public final class Yes {
     private final transient Map<String, String> translations;
 
     /**
-     * Public ctor.
+     * Ctor.
      */
+    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
     public Yes() {
         this.translations = new HashMap<String, String>();
         this.translations.put("en", "yes");

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
@@ -38,8 +38,8 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Test case for {@link Keystore}.
- * @author Yegor Bugayenko (yegor256@gmail.com)
- * @version $Id$
+ *
+ * @since 0.5
  */
 public final class KeystoreTest {
 
@@ -57,11 +57,9 @@ public final class KeystoreTest {
     @Test
     public void generatesAndActivatesKeystore() throws Exception {
         final Keystore keystore = new Keystore("test-test");
-        final File file = new File(
-            this.temp.newFolder("tmp"),
-            "/a/b/ckeystore.jks"
+        keystore.activate(
+            new File(this.temp.newFolder("tmp"), "/a/b/ckeystore.jks")
         );
-        keystore.activate(file);
         MatcherAssert.assertThat(keystore.isActive(), Matchers.is(true));
     }
 
