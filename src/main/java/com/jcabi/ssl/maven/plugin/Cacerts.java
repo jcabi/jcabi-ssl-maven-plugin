@@ -59,13 +59,13 @@ final class Cacerts {
                 System.getProperty("java.home")
             )
         );
-        FileUtils.copyFile(prev, file);
+        FileUtils.copyFile(prev.toPath().toRealPath().toFile(), file);
         Logger.info(
             this,
             "Existing cacerts '%s' copied to '%s' (%s)",
-            prev,
+            prev.toPath().toRealPath(),
             this.store,
-            FileUtils.byteCountToDisplaySize(this.store.length())
+            FileUtils.byteCountToDisplaySize(file.length())
         );
     }
 
