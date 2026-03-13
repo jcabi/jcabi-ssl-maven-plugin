@@ -144,8 +144,11 @@ final class Cacerts {
         cmds.add("-deststoretype");
         cmds.add("jks");
         cmds.add("-noprompt");
-        new VerboseProcess(
-            new ProcessBuilder(cmds), Level.FINE, Level.FINE
-        ).stdout();
+        final ProcessBuilder builder = new ProcessBuilder(cmds);
+        builder.environment().put(
+            "JAVA_TOOL_OPTIONS",
+            "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8"
+        );
+        new VerboseProcess(builder, Level.FINE, Level.FINE).stdout();
     }
 }

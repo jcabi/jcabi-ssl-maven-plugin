@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -75,7 +76,7 @@ final class Keytool {
         cmds.add("-storepass");
         cmds.add(this.password);
         return new VerboseProcess(
-            new ProcessBuilder(cmds), Level.FINE, Level.FINE
+            Keytool.utf(new ProcessBuilder(cmds)), Level.FINE, Level.FINE
         ).stdout();
     }
 
@@ -85,19 +86,21 @@ final class Keytool {
      */
     @Loggable(Loggable.DEBUG)
     public void genkey() throws IOException {
-        final Process proc = this.proc(
-            "-genkeypair",
-            "-alias",
-            Keytool.LOCALHOST,
-            "-keyalg",
-            "RSA",
-            "-keysize",
-            "2048",
-            "-keypass",
-            this.password
+        final Process proc = Keytool.utf(
+            this.proc(
+                "-genkeypair",
+                "-alias",
+                Keytool.LOCALHOST,
+                "-keyalg",
+                "RSA",
+                "-keysize",
+                "2048",
+                "-keypass",
+                this.password
+            )
         ).start();
         try (PrintWriter writer = new PrintWriter(
-            new OutputStreamWriter(proc.getOutputStream(), "UTF-8")
+            new OutputStreamWriter(proc.getOutputStream(), StandardCharsets.UTF_8)
         )) {
             writer.print(Keytool.appendNewLine(Keytool.LOCALHOST));
             writer.print(Keytool.appendNewLine("ACME Co."));
@@ -147,7 +150,7 @@ final class Keytool {
         cmds.add("jks");
         cmds.add("-noprompt");
         new VerboseProcess(
-            new ProcessBuilder(cmds), Level.FINE, Level.FINE
+            Keytool.utf(new ProcessBuilder(cmds)), Level.FINE, Level.FINE
         ).stdout();
     }
 
@@ -198,5 +201,18 @@ final class Keytool {
         cmds.add("-keystore");
         cmds.add(this.keystore);
         return new ProcessBuilder(cmds);
+    }
+
+    /**
+     * Configure process builder to use UTF-8 encoding.
+     * @param builder The process builder
+     * @return The same builder with UTF-8 environment
+     */
+    private static ProcessBuilder utf(final ProcessBuilder builder) {
+        builder.environment().put(
+            "JAVA_TOOL_OPTIONS",
+            "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8"
+        );
+        return builder;
     }
 }
