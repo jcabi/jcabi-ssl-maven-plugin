@@ -15,7 +15,6 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Keystore abstraction.
- *
  * @since 0.5
  */
 @Immutable
@@ -25,12 +24,12 @@ final class Keystore {
     /**
      * Constant {@code javax.net.ssl.keyStore}.
      */
-    public static final String KEY = "javax.net.ssl.keyStore";
+    static final String KEY = "javax.net.ssl.keyStore";
 
     /**
      * Constant {@code javax.net.ssl.keyStorePassword}.
      */
-    public static final String KEY_PWD = "javax.net.ssl.keyStorePassword";
+    static final String KEY_PWD = "javax.net.ssl.keyStorePassword";
 
     /**
      * Unique password of it.
@@ -70,7 +69,7 @@ final class Keystore {
      * @return TRUE if JVM is using our keystore
      */
     @Loggable(Loggable.DEBUG)
-    public boolean isActive() {
+    boolean isActive() {
         final String pwd = System.getProperty(Keystore.KEY_PWD);
         return pwd != null && pwd.equals(this.password);
     }
@@ -81,13 +80,13 @@ final class Keystore {
      * @throws IOException If fails
      */
     @Loggable(Loggable.DEBUG)
-    public void activate(final File file) throws IOException {
+    void activate(final File file) throws IOException {
         file.getParentFile().mkdirs();
         file.delete();
-        new Keytool(file, this.password).genkey();
+        new Keytool(file.getAbsolutePath(), this.password).genkey();
         System.setProperty(Keystore.KEY, file.getAbsolutePath());
         System.setProperty(Keystore.KEY_PWD, this.password);
-        new Keytool(file, this.password).list();
+        new Keytool(file.getAbsolutePath(), this.password).list();
     }
 
     /**
@@ -95,7 +94,7 @@ final class Keystore {
      * @param props The properties
      */
     @Loggable(Loggable.DEBUG)
-    public void populate(final Properties props) {
+    void populate(final Properties props) {
         final String[] names = {Keystore.KEY, Keystore.KEY_PWD};
         for (final String name : names) {
             if (System.getProperty(name) == null) {
@@ -110,5 +109,4 @@ final class Keystore {
             );
         }
     }
-
 }
