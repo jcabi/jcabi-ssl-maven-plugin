@@ -13,7 +13,6 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Test case for {@link Keytool}.
- *
  * @since 0.5
  */
 public final class KeytoolTest {
@@ -33,12 +32,11 @@ public final class KeytoolTest {
     public void generatesAndActivatesKeystore() throws Exception {
         final File file = this.temp.newFile("keystore.jks");
         file.delete();
-        final Keytool keytool = new Keytool(file, "some-password");
+        final Keytool keytool = new Keytool(file.getAbsolutePath(), "some-password");
         keytool.genkey();
         MatcherAssert.assertThat(
             keytool.list(),
             Matchers.containsString("Alias name:")
         );
     }
-
 }

@@ -15,12 +15,18 @@ import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  * Generate SSL keystore and configure in JVM.
- *
  * @since 0.5
  * @goal keygen
  * @phase initialize
  */
 public final class KeygenMojo extends AbstractMojo {
+
+    /**
+     * Default keystore used when no custom one is supplied.
+     */
+    private static final Keystore DEFAULT_STORE = new Keystore(
+        DigestUtils.md5Hex(KeygenMojo.class.getName())
+    );
 
     /**
      * Maven project.
@@ -53,7 +59,7 @@ public final class KeygenMojo extends AbstractMojo {
     /**
      * Keystore instance.
      */
-    private transient Keystore store;
+    private final transient Keystore store;
 
     /**
      * Cacerts instance.
@@ -61,13 +67,10 @@ public final class KeygenMojo extends AbstractMojo {
     private transient Cacerts truststore;
 
     /**
-     * Creates KeygenMojo.
+     * Creates KeygenMojo with the default keystore.
      */
     public KeygenMojo() {
-        this(
-            null, new Keystore(DigestUtils.md5Hex(KeygenMojo.class.getName())),
-            null
-        );
+        this(null, KeygenMojo.DEFAULT_STORE, null);
     }
 
     /**
@@ -101,7 +104,7 @@ public final class KeygenMojo extends AbstractMojo {
         }
         try {
             if (this.truststore == null) {
-                this.truststore = new Cacerts(this.cacerts);
+                this.truststore = Cacerts.fromFile(this.cacerts);
             }
             if (!this.store.isActive()) {
                 this.store.activate(this.keystore);
@@ -114,5 +117,4 @@ public final class KeygenMojo extends AbstractMojo {
         this.truststore.populate(this.project.getProperties());
         Logger.info(this, "Keystore is active: %s", this.store);
     }
-
 }

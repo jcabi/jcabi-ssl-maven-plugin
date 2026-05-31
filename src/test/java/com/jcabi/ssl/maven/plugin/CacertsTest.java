@@ -19,7 +19,6 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Test case for {@link Cacerts}.
- *
  * @since 0.5
  */
 public final class CacertsTest {
@@ -43,10 +42,10 @@ public final class CacertsTest {
         final File truststore = this.temp.newFile("cacerts.jks");
         truststore.delete();
         new Keystore("some-password").activate(keystore);
-        final Cacerts cacerts = new Cacerts(truststore);
+        final Cacerts cacerts = Cacerts.fromFile(truststore);
         cacerts.imprt();
         MatcherAssert.assertThat(
-            new Keytool(truststore, "changeit").list(),
+            new Keytool(truststore.getAbsolutePath(), "changeit").list(),
             Matchers.containsString("localhost")
         );
         final Properties props = new Properties();
