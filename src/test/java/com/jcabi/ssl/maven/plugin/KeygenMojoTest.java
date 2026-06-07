@@ -16,7 +16,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * Test case for {@link KeygenMojo} (more detailed test is in maven invoker).
- *
  * @since 0.5
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -50,7 +49,7 @@ public final class KeygenMojoTest {
         Mockito.when(project.getProperties()).thenReturn(properties);
         final KeygenMojo mojo = new KeygenMojo(
             project, keystore,
-            new Cacerts(
+            Cacerts.fromFile(
                 new File("target/populatesCacertsIdKeystoreIsActive/trust.jks")
             )
         );
@@ -66,5 +65,4 @@ public final class KeygenMojoTest {
             Matchers.notNullValue()
         );
     }
-
 }

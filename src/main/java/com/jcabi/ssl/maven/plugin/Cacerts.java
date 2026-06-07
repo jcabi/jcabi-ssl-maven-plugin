@@ -14,14 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
-import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.commons.io.FileUtils;
 
 /**
  * Abstraction of {@code java.home/lib/security/cacerts} file.
- *
  * @since 0.5
  */
 @Immutable
@@ -32,17 +30,17 @@ final class Cacerts {
     /**
      * Constant {@code javax.net.ssl.trustStore}.
      */
-    public static final String TRUST = "javax.net.ssl.trustStore";
+    static final String TRUST = "javax.net.ssl.trustStore";
 
     /**
      * Constant {@code javax.net.ssl.trustStorePassword}.
      */
-    public static final String TRUST_PWD = "javax.net.ssl.trustStorePassword";
+    static final String TRUST_PWD = "javax.net.ssl.trustStorePassword";
 
     /**
      * Standard password of {@code cacerts} file.
      */
-    public static final String STD_PWD = "changeit";
+    static final String STD_PWD = "changeit";
 
     /**
      * New location of the trust store.
@@ -50,37 +48,30 @@ final class Cacerts {
     private final transient String store;
 
     /**
-     * Ctor.
+     * Ctor for assignment only.
+     * @param path Absolute path of the truststore
+     */
+    private Cacerts(final String path) {
+        this.store = path;
+    }
+
+    /**
+     * Prepare the truststore at the given location and wrap it.
      * @param file New location
+     * @return Cacerts wrapping the prepared file
      * @throws IOException If fails
      */
-    @SuppressWarnings("PMD.ConstructorOnlyInitializesOrCallOtherConstructors")
-    Cacerts(@NotNull final File file) throws IOException {
-        this.store = file.getAbsolutePath();
-        final File prev = new File(
-            String.format(
-                "%s/lib/security/cacerts",
-                System.getProperty("java.home")
-            )
-        ).toPath().toRealPath().toFile();
-        Cacerts.convert(prev, file);
-        file.setWritable(true);
-        Logger.info(
-            this,
-            "Existing cacerts '%s' imported to '%s' (%s)",
-            prev,
-            this.store,
-            FileUtils.byteCountToDisplaySize(file.length())
-        );
+    static Cacerts fromFile(final File file) throws IOException {
+        return new Cacerts(Cacerts.prepare(file));
     }
 
     /**
      * Import existing keystore content into this trust store.
      * @throws IOException If fails
      */
-    public void imprt() throws IOException {
+    void imprt() throws IOException {
         final File keystore = new File(System.getProperty(Keystore.KEY));
-        new Keytool(new File(this.store), Cacerts.STD_PWD).imprt(
+        new Keytool(this.store, Cacerts.STD_PWD).imprt(
             keystore, System.getProperty(Keystore.KEY_PWD)
         );
         System.setProperty(Cacerts.TRUST, this.store);
@@ -95,11 +86,10 @@ final class Cacerts {
 
     /**
      * Populate given properties with this truststore's path and password.
-     *
      * @param props The properties
      */
     @Loggable(Loggable.DEBUG)
-    public void populate(final Properties props) {
+    void populate(final Properties props) {
         final String[] names = {Cacerts.TRUST, Cacerts.TRUST_PWD};
         for (final String name : names) {
             final String value = System.getProperty(name);
@@ -114,6 +104,31 @@ final class Cacerts {
                 value
             );
         }
+    }
+
+    /**
+     * Prepare the truststore at the given location and return its path.
+     * @param file Destination file
+     * @return Absolute path of the prepared file
+     * @throws IOException If fails
+     */
+    private static String prepare(final File file) throws IOException {
+        final File prev = new File(
+            String.format(
+                "%s/lib/security/cacerts",
+                System.getProperty("java.home")
+            )
+        ).toPath().toRealPath().toFile();
+        Cacerts.convert(prev, file);
+        file.setWritable(true);
+        Logger.info(
+            Cacerts.class,
+            "Existing cacerts '%s' imported to '%s' (%s)",
+            prev,
+            file.getAbsolutePath(),
+            FileUtils.byteCountToDisplaySize(file.length())
+        );
+        return file.getAbsolutePath();
     }
 
     /**

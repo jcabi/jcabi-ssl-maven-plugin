@@ -13,7 +13,6 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Test case for {@link Keystore}.
- *
  * @since 0.5
  */
 public final class KeystoreTest {
@@ -37,5 +36,4 @@ public final class KeystoreTest {
         );
         MatcherAssert.assertThat(keystore.isActive(), Matchers.is(true));
     }
-
 }

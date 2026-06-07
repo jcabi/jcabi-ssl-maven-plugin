@@ -14,6 +14,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -23,13 +24,13 @@ import org.apache.commons.io.FileUtils;
 
 /**
  * Keytool abstraction.
- *
  * @since 0.5
  */
 @Immutable
 @ToString
 @EqualsAndHashCode(of = { "keystore", "password" })
 final class Keytool {
+
     /**
      * Localhost, input to the keytool.
      */
@@ -52,11 +53,11 @@ final class Keytool {
 
     /**
      * Ctor.
-     * @param store The location of keystore
+     * @param store Absolute path of keystore
      * @param pwd The password
      */
-    Keytool(final File store, final String pwd) {
-        this.keystore = store.getAbsolutePath();
+    Keytool(final String store, final String pwd) {
+        this.keystore = store;
         this.password = pwd;
     }
 
@@ -66,7 +67,7 @@ final class Keytool {
      * @throws IOException If fails
      */
     @Loggable(Loggable.DEBUG)
-    public String list() throws IOException {
+    String list() throws IOException {
         final List<String> cmds = new ArrayList<>(10);
         cmds.add(Keytool.keytool());
         cmds.add("-list");
@@ -85,7 +86,7 @@ final class Keytool {
      * @throws IOException If fails
      */
     @Loggable(Loggable.DEBUG)
-    public void genkey() throws IOException {
+    void genkey() throws IOException {
         final Process proc = Keytool.utf(
             this.proc(
                 "-genkeypair",
@@ -99,9 +100,14 @@ final class Keytool {
                 this.password
             )
         ).start();
-        try (PrintWriter writer = new PrintWriter(
-            new OutputStreamWriter(proc.getOutputStream(), StandardCharsets.UTF_8)
-        )) {
+        try (
+            PrintWriter writer = new PrintWriter(
+                new OutputStreamWriter(
+                    proc.getOutputStream(),
+                    StandardCharsets.UTF_8
+                )
+            )
+        ) {
             writer.print(Keytool.appendNewLine(Keytool.LOCALHOST));
             writer.print(Keytool.appendNewLine("ACME Co."));
             writer.print(Keytool.appendNewLine("software developers"));
@@ -126,7 +132,7 @@ final class Keytool {
      * @throws IOException If fails
      */
     @Loggable(Loggable.DEBUG)
-    public void imprt(final File file, final String pwd) throws IOException {
+    void imprt(final File file, final String pwd) throws IOException {
         final List<String> cmds = new ArrayList<>(20);
         cmds.add(Keytool.keytool());
         cmds.add("-importkeystore");
@@ -192,7 +198,7 @@ final class Keytool {
     private ProcessBuilder proc(final String... args) {
         final List<String> cmds = new ArrayList<>(args.length + 1);
         cmds.add(Keytool.keytool());
-        cmds.addAll(java.util.Arrays.asList(args));
+        cmds.addAll(Arrays.asList(args));
         cmds.add("-storetype");
         cmds.add("jks");
         cmds.add("-noprompt");

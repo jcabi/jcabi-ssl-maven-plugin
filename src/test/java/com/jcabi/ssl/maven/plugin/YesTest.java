@@ -11,10 +11,10 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link Yes}.
- *
  * @since 0.12
  */
 public final class YesTest {
+
     /**
      * Yes can be translated to different languages.
      */
@@ -25,5 +25,4 @@ public final class YesTest {
             Matchers.equalTo("oui")
         );
     }
-
 }
