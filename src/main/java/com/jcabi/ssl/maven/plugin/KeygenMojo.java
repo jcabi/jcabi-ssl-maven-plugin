@@ -10,6 +10,9 @@ import java.io.IOException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.slf4j.impl.StaticLoggerBinder;
 
@@ -17,37 +20,36 @@ import org.slf4j.impl.StaticLoggerBinder;
  * Generate SSL keystore and configure in JVM.
  *
  * @since 0.5
- * @goal keygen
- * @phase initialize
  */
+@Mojo(
+    name = "keygen",
+    defaultPhase = LifecyclePhase.INITIALIZE,
+    threadSafe = true
+)
 public final class KeygenMojo extends AbstractMojo {
 
     /**
      * Maven project.
-     * @parameter name="project" default-value="${project}"
-     * @readonly
-     * @required
      */
+    @Parameter(defaultValue = "${project}", readonly = true, required = true)
     private transient MavenProject project;
 
     /**
      * Shall we skip execution?
-     * @parameter name="skip"
      */
+    @Parameter
     private transient boolean skip;
 
     /**
      * Name of keystore.jks file.
-     * @parameter name="keystore"
-     * default-value="${project.build.directory}/keystore.jks"
      */
+    @Parameter(defaultValue = "${project.build.directory}/keystore.jks")
     private transient File keystore;
 
     /**
      * Name of cacerts.jks file.
-     * @parameter name="cacerts"
-     * default-value="${project.build.directory}/cacerts.jks"
      */
+    @Parameter(defaultValue = "${project.build.directory}/cacerts.jks")
     private transient File cacerts;
 
     /**
