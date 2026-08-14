@@ -18,7 +18,6 @@ import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  * Generate SSL keystore and configure in JVM.
- *
  * @since 0.5
  */
 @Mojo(
@@ -116,5 +115,4 @@ public final class KeygenMojo extends AbstractMojo {
         this.truststore.populate(this.project.getProperties());
         Logger.info(this, "Keystore is active: %s", this.store);
     }
-
 }

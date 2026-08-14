@@ -23,13 +23,13 @@ import org.apache.commons.io.FileUtils;
 
 /**
  * Keytool abstraction.
- *
  * @since 0.5
  */
 @Immutable
 @ToString
 @EqualsAndHashCode(of = { "keystore", "password" })
 final class Keytool {
+
     /**
      * Localhost, input to the keytool.
      */
@@ -56,7 +56,16 @@ final class Keytool {
      * @param pwd The password
      */
     Keytool(final File store, final String pwd) {
-        this.keystore = store.getAbsolutePath();
+        this(store.getAbsolutePath(), pwd);
+    }
+
+    /**
+     * Ctor.
+     * @param store The absolute path of keystore
+     * @param pwd The password
+     */
+    private Keytool(final String store, final String pwd) {
+        this.keystore = store;
         this.password = pwd;
     }
 
@@ -66,7 +75,7 @@ final class Keytool {
      * @throws IOException If fails
      */
     @Loggable(Loggable.DEBUG)
-    public String list() throws IOException {
+    String list() throws IOException {
         final List<String> cmds = new ArrayList<>(10);
         cmds.add(Keytool.keytool());
         cmds.add("-list");
@@ -85,7 +94,7 @@ final class Keytool {
      * @throws IOException If fails
      */
     @Loggable(Loggable.DEBUG)
-    public void genkey() throws IOException {
+    void genkey() throws IOException {
         final Process proc = Keytool.utf(
             this.proc(
                 "-genkeypair",
@@ -99,9 +108,13 @@ final class Keytool {
                 this.password
             )
         ).start();
-        try (PrintWriter writer = new PrintWriter(
-            new OutputStreamWriter(proc.getOutputStream(), StandardCharsets.UTF_8)
-        )) {
+        try (
+            PrintWriter writer = new PrintWriter(
+                new OutputStreamWriter(
+                    proc.getOutputStream(), StandardCharsets.UTF_8
+                )
+            )
+        ) {
             writer.print(Keytool.appendNewLine(Keytool.LOCALHOST));
             writer.print(Keytool.appendNewLine("ACME Co."));
             writer.print(Keytool.appendNewLine("software developers"));
@@ -126,7 +139,7 @@ final class Keytool {
      * @throws IOException If fails
      */
     @Loggable(Loggable.DEBUG)
-    public void imprt(final File file, final String pwd) throws IOException {
+    void imprt(final File file, final String pwd) throws IOException {
         final List<String> cmds = new ArrayList<>(20);
         cmds.add(Keytool.keytool());
         cmds.add("-importkeystore");
@@ -170,7 +183,7 @@ final class Keytool {
      * @return The word "Yes" translated to the current language
      */
     private static String localeDependentYes() {
-        return new Yes().translate(Locale.getDefault());
+        return new Yes(Locale.getDefault()).translate();
     }
 
     /**

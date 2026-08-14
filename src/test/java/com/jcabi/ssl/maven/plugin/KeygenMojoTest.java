@@ -9,18 +9,14 @@ import java.util.Properties;
 import org.apache.maven.project.MavenProject;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * Test case for {@link KeygenMojo} (more detailed test is in maven invoker).
- *
  * @since 0.5
  */
-@RunWith(MockitoJUnitRunner.class)
-public final class KeygenMojoTest {
+final class KeygenMojoTest {
 
     /**
      * KeygenMojo can skip execution when flag is set.
@@ -28,7 +24,7 @@ public final class KeygenMojoTest {
      */
     @Test
     @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
-    public void skipsExecutionWhenRequired() throws Exception {
+    void skipsExecutionWhenRequired() throws Exception {
         final KeygenMojo mojo = new KeygenMojo();
         mojo.setSkip(true);
         mojo.execute();
@@ -40,7 +36,7 @@ public final class KeygenMojoTest {
      */
     @Test
     @SuppressWarnings("PMD.UnitTestContainsTooManyAsserts")
-    public void populatesCacertsIdKeystoreIsActive() throws Exception {
+    void populatesCacertsIdKeystoreIsActive() throws Exception {
         final Keystore keystore = new Keystore("changeit");
         keystore.activate(
             new File("target/populatesCacertsIdKeystoreIsActive/keystore.jks")
@@ -58,13 +54,14 @@ public final class KeygenMojoTest {
         System.getProperties().setProperty(Cacerts.TRUST_PWD, "pwd");
         mojo.execute();
         MatcherAssert.assertThat(
+            "trust store password cannot be in the properties",
             properties.getProperty(Cacerts.TRUST_PWD),
             Matchers.notNullValue()
         );
         MatcherAssert.assertThat(
+            "trust store location cannot be in the properties",
             properties.getProperty(Cacerts.TRUST),
             Matchers.notNullValue()
         );
     }
-
 }

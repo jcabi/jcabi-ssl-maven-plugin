@@ -4,41 +4,34 @@
  */
 package com.jcabi.ssl.maven.plugin;
 
-import java.io.File;
+import java.nio.file.Path;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  * Test case for {@link Keytool}.
- *
  * @since 0.5
  */
-public final class KeytoolTest {
-
-    /**
-     * Temporary folder.
-     * @checkstyle VisibilityModifier (3 lines)
-     */
-    @Rule
-    public transient TemporaryFolder temp = new TemporaryFolder();
+final class KeytoolTest {
 
     /**
      * Keytool can generate a keystore.
+     * @param temp Temporary directory
      * @throws Exception If something is wrong
      */
     @Test
-    public void generatesAndActivatesKeystore() throws Exception {
-        final File file = this.temp.newFile("keystore.jks");
-        file.delete();
-        final Keytool keytool = new Keytool(file, "some-password");
+    void generatesAndActivatesKeystore(@TempDir final Path temp)
+        throws Exception {
+        final Keytool keytool = new Keytool(
+            temp.resolve("keystore.jks").toFile(), "some-password"
+        );
         keytool.genkey();
         MatcherAssert.assertThat(
+            "alias cannot be found in the keystore",
             keytool.list(),
             Matchers.containsString("Alias name:")
         );
     }
-
 }
