@@ -225,14 +225,8 @@
             <artifactId>qulice-maven-plugin</artifactId>
             <version>0.30.11</version>
             <configuration>
-              <excludes combine.children="append">
+              <excludes>
                 <exclude>duplicatefinder:.*</exclude>
-                <exclude>findbugs:.*</exclude>
-                <exclude>xml:/src/it/settings.xml</exclude>
-                <exclude>pmd:ConstructorOnlyInitializesOrCallOtherConstructors</exclude>
-                <exclude>pmd:UnitTestContainsTooManyAsserts</exclude>
-                <exclude>pmd:UnitTestShouldIncludeAssert</exclude>
-                <exclude>pmd:UnnecessaryLocalRule</exclude>
               </excludes>
             </configuration>
           </plugin>
