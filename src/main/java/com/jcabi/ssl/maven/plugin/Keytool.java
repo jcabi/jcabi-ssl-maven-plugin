@@ -167,29 +167,14 @@ final class Keytool {
         ).stdout();
     }
 
-    /**
-     * Creates a string, which consists of string with an appended
-     * platform-dependent line separator.
-     * @param text Text, to which the line separator needs to be appended
-     * @return Contents of text with appended line separator
-     */
     private static String appendNewLine(final String text) {
         return String.format("%s%s", text, Keytool.NEWLINE);
     }
 
-    /**
-     * Creates a text, which represents "yes" in the language,
-     * specified by the current locale.
-     * @return The word "Yes" translated to the current language
-     */
     private static String localeDependentYes() {
         return new Yes(Locale.getDefault()).translate();
     }
 
-    /**
-     * Returns the path to the keytool executable.
-     * @return Path to keytool
-     */
     private static String keytool() {
         return String.format(
             "%s/bin/keytool",
@@ -197,11 +182,6 @@ final class Keytool {
         );
     }
 
-    /**
-     * Create process builder.
-     * @param args Arguments
-     * @return Process just created and started
-     */
     private ProcessBuilder proc(final String... args) {
         final List<String> cmds = new ArrayList<>(args.length + 1);
         cmds.add(Keytool.keytool());
@@ -216,11 +196,6 @@ final class Keytool {
         return new ProcessBuilder(cmds);
     }
 
-    /**
-     * Configure process builder to use UTF-8 encoding.
-     * @param builder The process builder
-     * @return The same builder with UTF-8 environment
-     */
     private static ProcessBuilder utf(final ProcessBuilder builder) {
         builder.environment().put(
             "JAVA_TOOL_OPTIONS",

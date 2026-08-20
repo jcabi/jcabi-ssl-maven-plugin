@@ -115,12 +115,6 @@ final class Cacerts {
         }
     }
 
-    /**
-     * Convert cacerts from any format to JKS.
-     * @param src Source cacerts file
-     * @param dest Destination JKS file
-     * @throws IOException If fails
-     */
     private static void convert(final File src, final File dest)
         throws IOException {
         dest.getParentFile().mkdirs();
