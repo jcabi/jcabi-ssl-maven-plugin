@@ -14,6 +14,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -23,6 +24,7 @@ import org.apache.commons.io.FileUtils;
 
 /**
  * Keytool abstraction.
+ *
  * @since 0.5
  */
 @Immutable
@@ -52,6 +54,7 @@ final class Keytool {
 
     /**
      * Ctor.
+     *
      * @param store The location of keystore
      * @param pwd The password
      */
@@ -61,6 +64,7 @@ final class Keytool {
 
     /**
      * Ctor.
+     *
      * @param store The absolute path of keystore
      * @param pwd The password
      */
@@ -71,6 +75,7 @@ final class Keytool {
 
     /**
      * List content of the keystore.
+     *
      * @return The content of it
      * @throws IOException If fails
      */
@@ -84,13 +89,18 @@ final class Keytool {
         cmds.add(this.keystore);
         cmds.add("-storepass");
         cmds.add(this.password);
-        return new VerboseProcess(
-            Keytool.utf(new ProcessBuilder(cmds)), Level.FINE, Level.FINE
-        ).stdout();
+        try (
+            VerboseProcess process = new VerboseProcess(
+                Keytool.utf(new ProcessBuilder(cmds)), Level.FINE, Level.FINE
+            )
+        ) {
+            return process.stdout();
+        }
     }
 
     /**
      * Generate key.
+     *
      * @throws IOException If fails
      */
     @Loggable(Loggable.DEBUG)
@@ -123,7 +133,9 @@ final class Keytool {
             writer.print(Keytool.appendNewLine("US"));
             writer.print(Keytool.appendNewLine(Keytool.localeDependentYes()));
         }
-        new VerboseProcess(proc, Level.FINE, Level.FINE).stdout();
+        try (VerboseProcess verbose = new VerboseProcess(proc, Level.FINE, Level.FINE)) {
+            verbose.stdout();
+        }
         Logger.info(
             this,
             "Keystore created in '%s' (%s)",
@@ -134,6 +146,7 @@ final class Keytool {
 
     /**
      * Import certificate into this store.
+     *
      * @param file The file to import
      * @param pwd The password there
      * @throws IOException If fails
@@ -162,9 +175,13 @@ final class Keytool {
         cmds.add("-deststoretype");
         cmds.add("jks");
         cmds.add("-noprompt");
-        new VerboseProcess(
-            Keytool.utf(new ProcessBuilder(cmds)), Level.FINE, Level.FINE
-        ).stdout();
+        try (
+            VerboseProcess process = new VerboseProcess(
+                Keytool.utf(new ProcessBuilder(cmds)), Level.FINE, Level.FINE
+            )
+        ) {
+            process.stdout();
+        }
     }
 
     private static String appendNewLine(final String text) {
@@ -185,7 +202,7 @@ final class Keytool {
     private ProcessBuilder proc(final String... args) {
         final List<String> cmds = new ArrayList<>(args.length + 1);
         cmds.add(Keytool.keytool());
-        cmds.addAll(java.util.Arrays.asList(args));
+        cmds.addAll(Arrays.asList(args));
         cmds.add("-storetype");
         cmds.add("jks");
         cmds.add("-noprompt");

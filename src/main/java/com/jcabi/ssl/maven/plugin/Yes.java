@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * Translates word yes to different languages.
+ *
  * @since 0.12
  */
 public final class Yes {
@@ -43,6 +44,7 @@ public final class Yes {
 
     /**
      * Ctor.
+     *
      * @param loc The locale
      */
     public Yes(final Locale loc) {
@@ -51,6 +53,7 @@ public final class Yes {
 
     /**
      * Translates word yes to the language of the locale.
+     *
      * @return Word yes translated to a language
      */
     public String translate() {

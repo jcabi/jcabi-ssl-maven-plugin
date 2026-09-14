@@ -18,6 +18,7 @@ import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  * Generate SSL keystore and configure in JVM.
+ *
  * @since 0.5
  */
 @Mojo(
@@ -73,6 +74,7 @@ public final class KeygenMojo extends AbstractMojo {
 
     /**
      * Creates KeygenMojo using custom KeystoreFactory.
+     *
      * @param prj Maven project
      * @param str Keystore instance
      * @param crt Cacerts instance
@@ -87,6 +89,7 @@ public final class KeygenMojo extends AbstractMojo {
 
     /**
      * Set skip option.
+     *
      * @param skp Shall we skip execution?
      */
     public void setSkip(final boolean skp) {

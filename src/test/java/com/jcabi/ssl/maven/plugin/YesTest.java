@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link Yes}.
+ *
  * @since 0.12
  */
 final class YesTest {

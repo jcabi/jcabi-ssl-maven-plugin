@@ -21,6 +21,7 @@ import org.apache.commons.io.FileUtils;
 
 /**
  * Abstraction of {@code java.home/lib/security/cacerts} file.
+ *
  * @since 0.5
  */
 @Immutable
@@ -50,6 +51,7 @@ final class Cacerts {
 
     /**
      * Ctor.
+     *
      * @param file New location
      * @throws IOException If fails
      */
@@ -76,6 +78,7 @@ final class Cacerts {
 
     /**
      * Import existing keystore content into this trust store.
+     *
      * @throws IOException If fails
      */
     void imprt() throws IOException {
@@ -95,6 +98,7 @@ final class Cacerts {
 
     /**
      * Populate given properties with this truststore's path and password.
+     *
      * @param props The properties
      */
     @Loggable(Loggable.DEBUG)
@@ -142,6 +146,8 @@ final class Cacerts {
             "JAVA_TOOL_OPTIONS",
             "-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8"
         );
-        new VerboseProcess(builder, Level.FINE, Level.FINE).stdout();
+        try (VerboseProcess process = new VerboseProcess(builder, Level.FINE, Level.FINE)) {
+            process.stdout();
+        }
     }
 }

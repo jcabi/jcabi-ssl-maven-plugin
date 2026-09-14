@@ -14,12 +14,14 @@ import org.mockito.Mockito;
 
 /**
  * Test case for {@link KeygenMojo} (more detailed test is in maven invoker).
+ *
  * @since 0.5
  */
 final class KeygenMojoTest {
 
     /**
      * KeygenMojo can skip execution when flag is set.
+     *
      * @throws Exception If something is wrong
      */
     @Test
@@ -32,6 +34,7 @@ final class KeygenMojoTest {
 
     /**
      * KeygenMojo populates cacerts even is keystore is active.
+     *
      * @throws Exception if test have failed
      */
     @Test

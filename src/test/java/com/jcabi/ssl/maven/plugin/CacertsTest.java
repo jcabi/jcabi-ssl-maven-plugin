@@ -19,12 +19,14 @@ import org.junit.jupiter.api.io.TempDir;
 
 /**
  * Test case for {@link Cacerts}.
+ *
  * @since 0.5
  */
 final class CacertsTest {
 
     /**
      * Cacerts can generate a keystore.
+     *
      * @param temp Temporary directory
      * @throws Exception If something is wrong
      */
@@ -59,6 +61,7 @@ final class CacertsTest {
 
     /**
      * Cacerts copies content from symlink correctly when cacerts is a symlink.
+     *
      * @param temp Temporary directory
      * @throws Exception If something is wrong
      */

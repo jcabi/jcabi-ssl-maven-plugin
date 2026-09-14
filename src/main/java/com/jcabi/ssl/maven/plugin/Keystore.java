@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Keystore abstraction.
+ *
  * @since 0.5
  */
 @Immutable
@@ -38,6 +39,7 @@ final class Keystore {
 
     /**
      * Ctor.
+     *
      * @param pwd The password
      */
     Keystore(@NotNull final String pwd) {
@@ -66,6 +68,7 @@ final class Keystore {
 
     /**
      * Is it active now in the JVM?
+     *
      * @return TRUE if JVM is using our keystore
      */
     @Loggable(Loggable.DEBUG)
@@ -76,6 +79,7 @@ final class Keystore {
 
     /**
      * Activate it, in the given file.
+     *
      * @param file The file to use
      * @throws IOException If fails
      */
@@ -91,6 +95,7 @@ final class Keystore {
 
     /**
      * Populate given properties with this keystore's path and password.
+     *
      * @param props The properties
      */
     @Loggable(Loggable.DEBUG)
