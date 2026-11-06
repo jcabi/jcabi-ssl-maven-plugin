@@ -1,19 +1,19 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "automerge": true,
   "extends": [
     "config:base"
   ],
-  "automerge": true,
-  "platformAutomerge": false,
   "packageRules": [
     {
+      "allowedVersions": "24.04",
       "matchManagers": [
         "github-actions"
       ],
       "matchPackageNames": [
         "ubuntu"
-      ],
-      "allowedVersions": "24.04"
+      ]
     }
-  ]
+  ],
+  "platformAutomerge": false
 }
