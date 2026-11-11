@@ -140,7 +140,7 @@ final class Keytool {
             this,
             "Keystore created in '%s' (%s)",
             this.keystore,
-            FileUtils.byteCountToDisplaySize(this.keystore.length())
+            FileUtils.byteCountToDisplaySize(new File(this.keystore).length())
         );
     }
 
