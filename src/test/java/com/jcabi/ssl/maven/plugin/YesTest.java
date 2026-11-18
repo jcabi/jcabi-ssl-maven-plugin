@@ -27,4 +27,28 @@ final class YesTest {
             Matchers.equalTo("oui")
         );
     }
+
+    /**
+     * Yes can be translated to Japanese.
+     */
+    @Test
+    void translatesJapanese() {
+        MatcherAssert.assertThat(
+            "Japanese cannot be translated",
+            new Yes(Locale.JAPANESE).translate(),
+            Matchers.equalTo("はい")
+        );
+    }
+
+    /**
+     * Yes can be translated to Ukrainian.
+     */
+    @Test
+    void translatesUkrainian() {
+        MatcherAssert.assertThat(
+            "Ukrainian cannot be translated",
+            new Yes(Locale.forLanguageTag("uk")).translate(),
+            Matchers.equalTo("так")
+        );
+    }
 }
