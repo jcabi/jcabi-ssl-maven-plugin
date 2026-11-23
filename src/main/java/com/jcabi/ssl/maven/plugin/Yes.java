@@ -24,8 +24,8 @@ public final class Yes {
         "fr", "oui",
         "ru", "да",
         "es", "sí",
-        "ua", "так",
-        "jp", "はい"
+        "uk", "так",
+        "ja", "はい"
     );
 
     /**
